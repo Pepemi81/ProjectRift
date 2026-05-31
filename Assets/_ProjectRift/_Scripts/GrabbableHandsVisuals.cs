@@ -3,19 +3,19 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-public class GrabbableHandToggler : MonoBehaviour
+public class GrabbableHandsVisuals : MonoBehaviour
 {
     [SerializeField]private XRBaseInteractable _grabInteractable;
 
     [Header("PropHands")]
-    [SerializeField] private GameObject _propRightHandModel;
-    [SerializeField] private GameObject _propLeftHandModel;
+    [SerializeField] private GameObject _rightHandModel;
+    [SerializeField] private GameObject _leftHandModel;
 
 
     private void Awake()
     {
-        if (_propRightHandModel != null) _propRightHandModel.SetActive(false);
-        if (_propLeftHandModel != null) _propLeftHandModel.SetActive(false);
+        if (_rightHandModel != null) _rightHandModel.SetActive(false);
+        if (_leftHandModel != null) _leftHandModel.SetActive(false);
     }
 
     private void OnEnable()
@@ -41,13 +41,13 @@ public class GrabbableHandToggler : MonoBehaviour
 
             if (hand.Side == HandSide.Right)
             {
-                if (_propRightHandModel == null) { Debug.LogError("PropRightHandModel no asignado."); return; }
-                _propRightHandModel.SetActive(true);
+                if (_rightHandModel == null) { Debug.LogError("PropRightHandModel no asignado."); return; }
+                _rightHandModel.SetActive(true);
             }
             else if (hand.Side == HandSide.Left)
             {
-                if (_propLeftHandModel == null) { Debug.LogError("PropLeftHandModel no asignado."); return; }
-                _propLeftHandModel.SetActive(true);
+                if (_leftHandModel == null) { Debug.LogError("PropLeftHandModel no asignado."); return; }
+                _leftHandModel.SetActive(true);
             }
         }
         else
@@ -67,11 +67,11 @@ public class GrabbableHandToggler : MonoBehaviour
 
             if (hand.Side == HandSide.Right)
             {
-                if (_propRightHandModel != null) _propRightHandModel.SetActive(false);
+                if (_rightHandModel != null) _rightHandModel.SetActive(false);
             }
             else if (hand.Side == HandSide.Left)
             {
-                if (_propLeftHandModel != null) _propLeftHandModel.SetActive(false);
+                if (_leftHandModel != null) _leftHandModel.SetActive(false);
             }
         }
     }

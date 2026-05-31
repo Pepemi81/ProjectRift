@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/_ProjectRift/Scenes/Testing_Miguel/TestScene2_Miguel.unity
     guid: dbb3009b226480349843f6b47d7df1c5
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3cb6aebc145569940bedfaaa44f12157, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 7b6d66ce57de10c44873c8f47ac71668, type: 2}
