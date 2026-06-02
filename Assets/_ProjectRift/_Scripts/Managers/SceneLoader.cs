@@ -7,6 +7,10 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private SceneField[] _scenesToLoad;
     [SerializeField] private SceneField[] _scenesToUnload;
 
+    [Header("Gizmos")]
+    [SerializeField] private bool _showGizmos = true;
+    private BoxCollider _boxCollider;
+
     private void OnTriggerEnter(Collider other)
     {
         LoadScenes();
@@ -46,5 +50,20 @@ public class SceneLoader : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_boxCollider == null) _boxCollider = GetComponent<BoxCollider>();
+        if (_boxCollider == null || !_showGizmos) return;
+
+        Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
+        Gizmos.matrix = rotationMatrix;
+
+        Gizmos.color = new Color(0f, 1f, 0f, 0.6f);
+        Gizmos.DrawWireCube(_boxCollider.center, _boxCollider.size);
+
+        Gizmos.color = new Color(0f, 1f, 0f, 0.15f);
+        Gizmos.DrawCube(_boxCollider.center, _boxCollider.size);
     }
 }
