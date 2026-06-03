@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_ProjectRift/Scenes/Testing_Miguel/TestChunk2_Miguel.unity
     guid: ddb50900ee3b0d145bbc9383cb2a2461
+  - enabled: 1
+    path: Assets/_ProjectRift/Scenes/Testing_Miguel/TestChunk3_Miguel.unity
+    guid: 08773ab9277cd744c80bf8ac366f9b1f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3cb6aebc145569940bedfaaa44f12157, type: 2}

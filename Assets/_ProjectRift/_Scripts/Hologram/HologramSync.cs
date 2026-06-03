@@ -13,6 +13,8 @@ public class HologramSync : Singleton<HologramSync>
     {
         if (_realSubmarine == null || _hologramOrigin == null) return;
 
+        _hologramOrigin.localScale = Vector3.one * _scaleFactor;
+
         Quaternion inverseRotation = Quaternion.Inverse(_realSubmarine.rotation);
         _hologramOrigin.localRotation = inverseRotation;
 
