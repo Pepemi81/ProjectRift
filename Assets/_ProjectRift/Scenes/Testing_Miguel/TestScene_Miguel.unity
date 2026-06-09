@@ -1242,7 +1242,7 @@ GameObject:
   - component: {fileID: 312680565}
   - component: {fileID: 312680564}
   - component: {fileID: 312680563}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1579,6 +1579,37 @@ Transform:
   - {fileID: 1630500756}
   m_Father: {fileID: 1804076356}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &339001169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339001170}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &339001170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339001169}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1366443322}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &354560141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,7 +1621,7 @@ GameObject:
   - component: {fileID: 354560145}
   - component: {fileID: 354560144}
   - component: {fileID: 354560143}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2512,7 +2543,7 @@ GameObject:
   - component: {fileID: 736128033}
   - component: {fileID: 736128035}
   - component: {fileID: 736128034}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Submarine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2561,7 +2592,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 64
   m_CollisionDetection: 0
 --- !u!114 &736128035
 MonoBehaviour:
@@ -2683,7 +2714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 893664739}
   - component: {fileID: 893664740}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3269,7 +3300,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 339001170}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1386926616
@@ -5411,6 +5443,79 @@ Transform:
   - {fileID: 1113854535}
   m_Father: {fileID: 1538762698}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2047675804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2047675805}
+  - component: {fileID: 2047675808}
+  - component: {fileID: 2047675807}
+  m_Layer: 0
+  m_Name: MissionArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2047675805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047675804}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.92, y: 3.047, z: 23.83}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2047675807
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047675804}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2047675808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047675804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e831f77f4c1ae46a05b57ec89daff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissionTest
+  _missionStartEvent: {fileID: 11400000, guid: 7e76165109d478c4e9e02d71fea6542d, type: 2}
+  _missionCompleteEvent: {fileID: 11400000, guid: 029b3d92664652340817248e958ca247, type: 2}
+  _submarineLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _drawAreaGizmo: 1
+  _gizmoColor: {r: 1, g: 1, b: 0, a: 0.35}
 --- !u!1 &2088686522
 GameObject:
   m_ObjectHideFlags: 0
@@ -5870,3 +5975,4 @@ SceneRoots:
   - {fileID: 1429094023}
   - {fileID: 1366443322}
   - {fileID: 366016208}
+  - {fileID: 2047675805}

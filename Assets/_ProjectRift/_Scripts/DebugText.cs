@@ -1,15 +1,28 @@
 using UnityEngine;
+using System.Collections;
 using TMPro;
 
 public class DebugText : Singleton<DebugText>
 {
     [SerializeField] private TextMeshPro _text;
 
-    public void SetText(string text)
+    private Coroutine _clearCoroutine;
+
+    public void SetText(string text, float duration = 0f)
     {
-        if (_text != null)
+        if (_clearCoroutine != null) StopCoroutine(_clearCoroutine);
+
+        _text.text = text;
+
+        if (duration > 0f)
         {
-            _text.text = text;
+            _clearCoroutine = StartCoroutine(ClearTextAfterDelay(duration));
         }
+    }
+
+    private IEnumerator ClearTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        _text.text = string.Empty;
     }
 }
