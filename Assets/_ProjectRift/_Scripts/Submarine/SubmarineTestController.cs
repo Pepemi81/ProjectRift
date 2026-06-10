@@ -10,8 +10,8 @@ public class SubmarineTestController : MonoBehaviour
 
     private Rigidbody _rb;
 
-    private Vector2 _joystickMoveInput;
-    private Vector2 _joystickRotationInput;
+    private Vector3 _joystickMoveInput;
+    private float _joystickRotationYInput;
 
     void Start()
     {
@@ -22,6 +22,8 @@ public class SubmarineTestController : MonoBehaviour
         _rb.angularDamping = 2f;
 
         _rb.useGravity = false;
+
+        _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
     void FixedUpdate()
@@ -34,7 +36,7 @@ public class SubmarineTestController : MonoBehaviour
 
     private void HandleMovement(Keyboard keyboard)
     {
-        Vector3 moveInput = new Vector3(_joystickMoveInput.x, 0f, _joystickMoveInput.y);
+        Vector3 moveInput = _joystickMoveInput;
 
         if (keyboard != null)
         {
@@ -42,6 +44,10 @@ public class SubmarineTestController : MonoBehaviour
             if (keyboard.sKey.isPressed) moveInput.z -= 1f;
             if (keyboard.dKey.isPressed) moveInput.x += 1f;
             if (keyboard.aKey.isPressed) moveInput.x -= 1f;
+
+            // Controles de teclado para ascender/descender (Eje Y)
+            if (keyboard.spaceKey.isPressed) moveInput.y += 1f;
+            if (keyboard.leftCtrlKey.isPressed) moveInput.y -= 1f;
         }
 
         if (moveInput != Vector3.zero)
@@ -53,17 +59,12 @@ public class SubmarineTestController : MonoBehaviour
 
     private void HandleRotation(Keyboard keyboard)
     {
-        Vector3 torqueInput = new Vector3(_joystickRotationInput.y, _joystickRotationInput.x, 0f);
+        Vector3 torqueInput = new Vector3(0f, _joystickRotationYInput, 0f);
 
         if (keyboard != null)
         {
-            if (keyboard.upArrowKey.isPressed) torqueInput.x -= 1f;
-            if (keyboard.downArrowKey.isPressed) torqueInput.x += 1f;
             if (keyboard.rightArrowKey.isPressed) torqueInput.y += 1f;
             if (keyboard.leftArrowKey.isPressed) torqueInput.y -= 1f;
-
-            if (keyboard.qKey.isPressed) torqueInput.z += 1f;
-            if (keyboard.eKey.isPressed) torqueInput.z -= 1f;
         }
 
         if (torqueInput != Vector3.zero)
@@ -73,28 +74,28 @@ public class SubmarineTestController : MonoBehaviour
         }
     }
 
-    // --- ENTRADAS PARA EL MOVIMIENTO (PLANO ZX) ---
+    // --- ENTRADAS PARA EL MOVIMIENTO TRIDIMENSIONAL ---
 
     public void SetMoveX(float value)
     {
         _joystickMoveInput.x = value;
     }
 
-    public void SetMoveZ(float value)
+    public void SetMoveY(float value)
     {
         _joystickMoveInput.y = value;
     }
 
-    // --- ENTRADAS PARA LA ROTACIÓN (EJES Y / X) ---
+    public void SetMoveZ(float value)
+    {
+        _joystickMoveInput.z = value;
+    }
+
+    // --- ENTRADA PARA LA ROTACIÓN ÚNICA (EJE Y) ---
 
     public void SetRotationY(float value)
     {
-        _joystickRotationInput.x = value;
-    }
-
-    public void SetRotationX(float value)
-    {
-        _joystickRotationInput.y = value;
+        _joystickRotationYInput = value;
     }
 
     [ContextMenu("Reset Inercia Submarino")]
