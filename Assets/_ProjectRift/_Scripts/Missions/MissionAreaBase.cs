@@ -12,7 +12,8 @@ public abstract class MissionAreaBase : MonoBehaviour
     [SerializeField] private Color _gizmoColor = new Color(1, 1, 0, 0.35f);
     [Space(10)]
 
-    private bool _isMissionActive = false;
+    private bool _isActive = false;
+    public bool IsActive => _isActive;
 
 
     private void OnTriggerEnter(Collider other)
