@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 [RequireComponent(typeof(XRGrabInteractable))]
 public class DrillJoystickInputReader : MonoBehaviour
@@ -16,6 +17,7 @@ public class DrillJoystickInputReader : MonoBehaviour
     private Coroutine _drillCoroutine;
     private HandSide _grabbedSide;
     private XRGrabInteractable _grabInteractable;
+    private IXRSelectInteractor _currentInteractor;
 
     private void Awake() => _grabInteractable = GetComponent<XRGrabInteractable>();
 
@@ -32,6 +34,8 @@ public class DrillJoystickInputReader : MonoBehaviour
 
     private void StartDrilling(SelectEnterEventArgs args)
     {
+        _currentInteractor = args.interactorObject;
+
         HandAnimator hand = args.interactorObject.transform.GetComponent<HandAnimator>();
         if (hand != null) _grabbedSide = hand.Side;
 
@@ -41,6 +45,8 @@ public class DrillJoystickInputReader : MonoBehaviour
 
     private void StopDrilling(SelectExitEventArgs args)
     {
+        _currentInteractor = null;
+
         if (_drillCoroutine != null)
         {
             StopCoroutine(_drillCoroutine);
@@ -69,5 +75,13 @@ public class DrillJoystickInputReader : MonoBehaviour
     private void ProcessDrillInput(Vector2 stick, float trigger)
     {
         DebugText.Instance.SetText($"<color=green>Joystick: {stick}</color>\n<color=blue>Trigger: {trigger}</color>");
+    }
+
+    public void ForceRelease()
+    {
+        if (_grabInteractable.isSelected && _currentInteractor != null)
+        {
+            _grabInteractable.interactionManager.CancelInteractableSelection((IXRSelectInteractable)_grabInteractable);
+        }
     }
 }

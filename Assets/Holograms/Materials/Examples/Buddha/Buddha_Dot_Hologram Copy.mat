@@ -55,7 +55,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Displacement_Density: 0.25
+    - _Displacement_Density: 0.1
     - _Displacement_Noise_Scale: 0.75
     - _Displacement_Offset: 0.1
     - _Displacement_Speed: 1

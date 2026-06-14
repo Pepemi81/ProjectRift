@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using System.Collections;
-using TMPro;
 
 public class DebugText : Singleton<DebugText>
 {

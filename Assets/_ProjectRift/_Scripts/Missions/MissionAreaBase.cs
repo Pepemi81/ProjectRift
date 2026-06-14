@@ -15,6 +15,8 @@ public abstract class MissionAreaBase : MonoBehaviour
     private bool _isActive = false;
     public bool IsActive => _isActive;
 
+    private Collider _collider;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,10 +32,17 @@ public abstract class MissionAreaBase : MonoBehaviour
         else
         {
             Debug.LogWarning($"MissionAreaBase on {gameObject.name} has no MissionStartEvent assigned.");
+            return;
         }
+
+        _collider.enabled = false;
     }
 
-    protected virtual void FinishMission() => this.gameObject.SetActive(false);
+    protected virtual void FinishMission()
+    {
+        _missionCompleteEvent.Invoke();
+        this.gameObject.SetActive(false);
+    }
 
     protected virtual void OnEnable()
     {
@@ -42,6 +51,8 @@ public abstract class MissionAreaBase : MonoBehaviour
         {
             Debug.LogWarning($"MissionAreaBase on {gameObject.name} has no MissionCompleteEvent assigned.");
         }
+
+        _collider = GetComponent<Collider>();
     }
 
     protected virtual void OnDisable()
