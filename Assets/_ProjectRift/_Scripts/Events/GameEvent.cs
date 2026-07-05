@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(menuName = "Eventos/GameEvent")]
+[CreateAssetMenu(menuName = "ScriptableObjects/GameEvent")]
 public class GameEvent : ScriptableObject
 {
     private UnityAction _onEventTriggered;
