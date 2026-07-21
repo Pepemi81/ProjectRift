@@ -33,8 +33,7 @@ public class GameEventListener : MonoBehaviour
     }
 
     [SerializeField] private GameEvent _gameEvent;
-    [Space(10)]
-    [SerializeField] private List<DelayedAction> _responses = new List<DelayedAction>();
+    [Space(10), SerializeField] private List<DelayedAction> _responses = new List<DelayedAction>();
 
     private void Awake()
     {

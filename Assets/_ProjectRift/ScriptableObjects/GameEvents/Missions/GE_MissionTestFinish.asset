@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 619ae56a23fe1304ca404fe6622157dc, type: 3}
-  m_Name: MissionTestFinish
+  m_Name: GE_MissionTestFinish
   m_EditorClassIdentifier: Assembly-CSharp::GameEvent
