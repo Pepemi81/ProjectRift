@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public enum PrefabTypingMode
+/// <summary>
+/// Define el modo de revelado del texto en prefabs personalizados.
+/// </summary>
+public enum TypingMode
 {
     Sequential,
     Simultaneous
 }
 
-public class LoreCustomScreen : MonoBehaviour
+/// <summary>
+/// Se coloca en la raíz de un prefab de interfaz personalizado para auto-gestionar 
+/// la animación de escritura en sus componentes TextMeshProUGUI.
+/// </summary>
+public class CustomSlideAnimator : MonoBehaviour
 {
     [SerializeField] private List<TextMeshProUGUI> _textElements;
-    [SerializeField] private PrefabTypingMode _typingMode;
+    [SerializeField] private TypingMode _typingMode;
     [SerializeField] private float _typingSpeed = 0.05f;
 
     private string[] _originalTexts;
@@ -35,7 +42,7 @@ public class LoreCustomScreen : MonoBehaviour
 
         if (_textElements.Count > 0)
         {
-            if (_typingMode == PrefabTypingMode.Simultaneous)
+            if (_typingMode == TypingMode.Simultaneous)
             {
                 StartCoroutine(TypeSimultaneously());
             }

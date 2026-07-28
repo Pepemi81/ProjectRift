@@ -1,38 +1,33 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(LoreSequenceManager))]
-public class LoreSequenceManagerEditor : Editor
+[CustomEditor(typeof(MonitorSequenceDirector))]
+public class MonitorSequenceDirectorCE : Editor
 {
-    private SerializedProperty _screenController;
-    private SerializedProperty _testData;
+    private SerializedProperty _testSlide;
     private SerializedProperty _testSequence;
-
-    private void OnEnable()
-    {
-        _screenController = serializedObject.FindProperty("_screenController");
-        _testData = serializedObject.FindProperty("_testData");
-        _testSequence = serializedObject.FindProperty("_testSequence");
-    }
 
     public override void OnInspectorGUI()
     {
+        if (target == null) return;
+
         serializedObject.Update();
 
-        EditorGUILayout.PropertyField(_screenController);
+        _testSlide = serializedObject.FindProperty("_testSlide");
+        _testSequence = serializedObject.FindProperty("_testSequence");
 
         EditorGUILayout.Space();
         GUILayout.Label("Testing", EditorStyles.boldLabel);
 
-        bool hasData = _testData.objectReferenceValue != null;
-        bool hasSequence = _testSequence.objectReferenceValue != null;
+        bool hasData = _testSlide != null && _testSlide.objectReferenceValue != null;
+        bool hasSequence = _testSequence != null && _testSequence.objectReferenceValue != null;
 
-        if (!hasSequence)
+        if (!hasSequence && _testSlide != null)
         {
-            EditorGUILayout.PropertyField(_testData);
+            EditorGUILayout.PropertyField(_testSlide);
         }
 
-        if (!hasData)
+        if (!hasData && _testSequence != null)
         {
             EditorGUILayout.PropertyField(_testSequence);
         }
@@ -44,16 +39,16 @@ public class LoreSequenceManagerEditor : Editor
             EditorGUILayout.Space();
             GUILayout.Label("Debug Buttons", EditorStyles.boldLabel);
 
-            LoreSequenceManager manager = (LoreSequenceManager)target;
+            MonitorSequenceDirector director = (MonitorSequenceDirector)target;
 
-            if (hasData && GUILayout.Button("Test Single Data", GUILayout.Height(25)))
+            if (hasData && GUILayout.Button("Test Single Slide", GUILayout.Height(25)))
             {
-                manager.TestSingleData();
+                director.TestSingleSlide();
             }
 
             if (hasSequence && GUILayout.Button("Test Sequence", GUILayout.Height(25)))
             {
-                manager.TestSequence();
+                director.TestSequence();
             }
         }
         else if (!Application.isPlaying && (hasData || hasSequence))

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c61c5c257b6aa4db878c5613ec4253, type: 3}
   m_Name: TestSequence
   m_EditorClassIdentifier: Assembly-CSharp::ScreenSequenceData
-  _screens:
-  - {fileID: 11400000, guid: 41da6cc37cd267247986b90a43792cab, type: 2}
-  - {fileID: 11400000, guid: 0f71ed08b25028d43a34aa4dd3593784, type: 2}
-  - {fileID: 11400000, guid: 9466e735595634a4092e028fa5f66eb0, type: 2}
+  _slides:
+  - {fileID: 11400000, guid: 7c9bde4958f20dc4fb155a27b014989c, type: 2}
+  - {fileID: 11400000, guid: a34eed5b950f98c41a51a8a39747a2c6, type: 2}
+  - {fileID: 11400000, guid: 90bff9008d2b7e744906126385e4d322, type: 2}
+  - {fileID: 11400000, guid: c3b6a7ae4c784074c9a48b2a1f15468f, type: 2}

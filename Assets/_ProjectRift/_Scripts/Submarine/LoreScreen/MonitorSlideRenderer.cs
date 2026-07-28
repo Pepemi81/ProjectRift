@@ -3,11 +3,14 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-public class LoreScreenController : MonoBehaviour
+/// <summary>
+/// Determina si la diapositiva utiliza el diseño por defecto del Canvas o un Prefab modular.
+/// </summary>
+public class MonitorSlideRenderer : MonoBehaviour
 {
     [Header("Referencias Default UI")]
-    [SerializeField] private Image _screenImage;
-    [SerializeField] private TextMeshProUGUI _screenText;
+    [SerializeField] private Image _monitorImage;
+    [SerializeField] private TextMeshProUGUI _monitorText;
 
     [Header("Contenedor para Prefabs")]
     [SerializeField] private RectTransform _prefabContainer;
@@ -17,21 +20,21 @@ public class LoreScreenController : MonoBehaviour
 
     private bool _isTypingDefault;
     private GameObject _instantiatedPrefab;
-    private LoreCustomScreen _currentCustomScreen;
+    private CustomSlideAnimator _currentCustomSlide;
 
     public bool IsFinished
     {
         get
         {
-            if (_currentCustomScreen != null)
+            if (_currentCustomSlide != null)
             {
-                return _currentCustomScreen.IsFinished;
+                return _currentCustomSlide.IsFinished;
             }
             return !_isTypingDefault;
         }
     }
 
-    public void Initialize(ScreenDisplayData data)
+    public void Initialize(MonitorSlideData data)
     {
         ClearCurrentScreen();
 
@@ -45,17 +48,17 @@ public class LoreScreenController : MonoBehaviour
         }
     }
 
-    private void SetupDefaultUI(ScreenDisplayData data)
+    private void SetupDefaultUI(MonitorSlideData data)
     {
-        if (_screenImage != null)
+        if (_monitorImage != null)
         {
-            _screenImage.gameObject.SetActive(data.DisplayImage != null);
-            _screenImage.sprite = data.DisplayImage;
+            _monitorImage.gameObject.SetActive(data.DisplayImage != null);
+            _monitorImage.sprite = data.DisplayImage;
         }
 
-        if (_screenText != null)
+        if (_monitorText != null)
         {
-            _screenText.gameObject.SetActive(!string.IsNullOrEmpty(data.DisplayText));
+            _monitorText.gameObject.SetActive(!string.IsNullOrEmpty(data.DisplayText));
 
             if (!string.IsNullOrEmpty(data.DisplayText))
             {
@@ -68,19 +71,19 @@ public class LoreScreenController : MonoBehaviour
         }
     }
 
-    private void SetupPrefabUI(ScreenDisplayData data)
+    private void SetupPrefabUI(MonitorSlideData data)
     {
-        if (_screenImage != null) _screenImage.gameObject.SetActive(false);
-        if (_screenText != null) _screenText.gameObject.SetActive(false);
+        if (_monitorImage != null) _monitorImage.gameObject.SetActive(false);
+        if (_monitorText != null) _monitorText.gameObject.SetActive(false);
 
-        if (data.ScreenPrefab != null && _prefabContainer != null)
+        if (data.SlidePrefab != null && _prefabContainer != null)
         {
-            _instantiatedPrefab = Instantiate(data.ScreenPrefab, _prefabContainer);
-            _currentCustomScreen = _instantiatedPrefab.GetComponent<LoreCustomScreen>();
+            _instantiatedPrefab = Instantiate(data.SlidePrefab, _prefabContainer);
+            _currentCustomSlide = _instantiatedPrefab.GetComponent<CustomSlideAnimator>();
 
-            if (_currentCustomScreen != null)
+            if (_currentCustomSlide != null)
             {
-                _currentCustomScreen.Initialize();
+                _currentCustomSlide.Initialize();
             }
             else
             {
@@ -98,11 +101,11 @@ public class LoreScreenController : MonoBehaviour
     private IEnumerator TypeTextDefault(string textToType)
     {
         _isTypingDefault = true;
-        _screenText.text = string.Empty;
+        _monitorText.text = string.Empty;
 
         for (int i = 0; i < textToType.Length; i++)
         {
-            _screenText.text += textToType[i];
+            _monitorText.text += textToType[i];
             yield return new WaitForSeconds(_typingSpeed);
         }
 
@@ -111,16 +114,16 @@ public class LoreScreenController : MonoBehaviour
 
     public void SkipTyping(string fullText)
     {
-        if (_currentCustomScreen != null)
+        if (_currentCustomSlide != null)
         {
-            _currentCustomScreen.SkipTyping();
+            _currentCustomSlide.SkipTyping();
         }
         else
         {
             StopAllCoroutines();
-            if (_screenText != null && _screenText.gameObject.activeSelf)
+            if (_monitorText != null && _monitorText.gameObject.activeSelf)
             {
-                _screenText.text = fullText;
+                _monitorText.text = fullText;
             }
             _isTypingDefault = false;
         }
@@ -137,18 +140,18 @@ public class LoreScreenController : MonoBehaviour
             _instantiatedPrefab = null;
         }
 
-        _currentCustomScreen = null;
+        _currentCustomSlide = null;
 
-        if (_screenImage != null)
+        if (_monitorImage != null)
         {
-            _screenImage.gameObject.SetActive(false);
-            _screenImage.sprite = null;
+            _monitorImage.gameObject.SetActive(false);
+            _monitorImage.sprite = null;
         }
 
-        if (_screenText != null)
+        if (_monitorText != null)
         {
-            _screenText.gameObject.SetActive(false);
-            _screenText.text = string.Empty;
+            _monitorText.gameObject.SetActive(false);
+            _monitorText.text = string.Empty;
         }
     }
 }

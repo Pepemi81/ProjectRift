@@ -1,7 +1,7 @@
 using UnityEditor;
 
-[CustomEditor(typeof(ScreenDisplayData))]
-public class ScreenDisplayDataEditor : Editor
+[CustomEditor(typeof(MonitorSlideData))]
+public class MonitorSlideDataCE : Editor
 {
     private SerializedProperty _displayMode;
     private SerializedProperty _screenPrefab;
@@ -12,7 +12,7 @@ public class ScreenDisplayDataEditor : Editor
     private void OnEnable()
     {
         _displayMode = serializedObject.FindProperty("_displayMode");
-        _screenPrefab = serializedObject.FindProperty("_screenPrefab");
+        _screenPrefab = serializedObject.FindProperty("_slidePrefab");
         _displayImage = serializedObject.FindProperty("_displayImage");
         _displayText = serializedObject.FindProperty("_displayText");
         _autoAdvanceDelay = serializedObject.FindProperty("_autoAdvanceDelay");

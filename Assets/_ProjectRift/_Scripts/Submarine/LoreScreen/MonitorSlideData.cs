@@ -6,12 +6,12 @@ public enum ScreenDisplayMode
     CustomPrefab
 }
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Monitor/Screen Data")]
-public class ScreenDisplayData : ScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObjects/Monitor/Slide Data")]
+public class MonitorSlideData : ScriptableObject
 {
     [SerializeField] private ScreenDisplayMode _displayMode;
 
-    [SerializeField] private GameObject _screenPrefab;
+    [SerializeField] private GameObject _slidePrefab;
     [SerializeField] private Sprite _displayImage;
     [TextArea(3, 10)][SerializeField] private string _displayText;
 
@@ -19,7 +19,7 @@ public class ScreenDisplayData : ScriptableObject
     [SerializeField] private float _autoAdvanceDelay = 0f;
 
     public ScreenDisplayMode DisplayMode => _displayMode;
-    public GameObject ScreenPrefab => _screenPrefab;
+    public GameObject SlidePrefab => _slidePrefab;
     public Sprite DisplayImage => _displayImage;
     public string DisplayText => _displayText;
     public float AutoAdvanceDelay => _autoAdvanceDelay;

@@ -1,20 +1,28 @@
 using System.Collections;
 using UnityEngine;
 
-public class LoreSequenceManager : MonoBehaviour
+/// <summary>
+/// ScriptableObject que almacena una lista ordenada de diapositivas (MonitorSlideData) 
+/// para reproducirlas de forma consecutiva en el monitor.
+/// </summary>
+[RequireComponent(typeof(MonitorSlideRenderer))]
+public class MonitorSequenceDirector : MonoBehaviour
 {
-    [SerializeField] private LoreScreenController _screenController;
+    [SerializeField] private MonitorSlideData _testSlide;
+    [SerializeField] private MonitorSequenceData _testSequence;
 
-    [Header("Testing")]
-    [SerializeField] private ScreenDisplayData _testData;
-    [SerializeField] private ScreenSequenceData _testSequence;
-
+    private MonitorSlideRenderer _monitorRenderer;
     private Coroutine _sequenceCoroutine;
     private bool _interactPressed;
 
-    public void PlaySequence(ScreenSequenceData sequenceData)
+    private void Awake()
     {
-        if (sequenceData == null || sequenceData.Screens.Count == 0)
+        _monitorRenderer = GetComponent<MonitorSlideRenderer>();
+    }
+
+    public void PlaySequence(MonitorSequenceData sequenceData)
+    {
+        if (sequenceData == null || sequenceData.Slides.Count == 0)
         {
             Debug.LogWarning("<color=red>[LoreSequenceManager]</color> La secuencia está vacía o es nula.");
             return;
@@ -28,7 +36,7 @@ public class LoreSequenceManager : MonoBehaviour
         _sequenceCoroutine = StartCoroutine(ProcessSequence(sequenceData));
     }
 
-    public void PlaySingleData(ScreenDisplayData data)
+    public void PlaySingleSlide(MonitorSlideData data)
     {
         if (data == null)
         {
@@ -44,46 +52,46 @@ public class LoreSequenceManager : MonoBehaviour
         _sequenceCoroutine = StartCoroutine(ProcessSingleData(data));
     }
 
-    private IEnumerator ProcessSequence(ScreenSequenceData sequenceData)
+    private IEnumerator ProcessSequence(MonitorSequenceData sequenceData)
     {
-        foreach (ScreenDisplayData screenData in sequenceData.Screens)
+        foreach (MonitorSlideData screenData in sequenceData.Slides)
         {
             yield return StartCoroutine(ProcessScreenData(screenData));
         }
 
-        _screenController.ClearCurrentScreen();
+        _monitorRenderer.ClearCurrentScreen();
         Debug.LogWarning("<color=cyan>[LoreSequenceManager]</color> Secuencia finalizada. Pantalla restaurada.");
         _sequenceCoroutine = null;
     }
 
-    private IEnumerator ProcessSingleData(ScreenDisplayData data)
+    private IEnumerator ProcessSingleData(MonitorSlideData data)
     {
         yield return StartCoroutine(ProcessScreenData(data));
 
-        _screenController.ClearCurrentScreen();
+        _monitorRenderer.ClearCurrentScreen();
         Debug.LogWarning("<color=cyan>[LoreSequenceManager]</color> Data individual finalizado. Pantalla restaurada.");
         _sequenceCoroutine = null;
     }
 
-    private IEnumerator ProcessScreenData(ScreenDisplayData screenData)
+    private IEnumerator ProcessScreenData(MonitorSlideData slideData)
     {
-        _screenController.Initialize(screenData);
+        _monitorRenderer.Initialize(slideData);
         _interactPressed = false;
 
-        yield return new WaitUntil(() => _screenController.IsFinished || _interactPressed);
+        yield return new WaitUntil(() => _monitorRenderer.IsFinished || _interactPressed);
 
-        if (_interactPressed && !_screenController.IsFinished)
+        if (_interactPressed && !_monitorRenderer.IsFinished)
         {
-            _screenController.SkipTyping(screenData.DisplayText);
+            _monitorRenderer.SkipTyping(slideData.DisplayText);
             _interactPressed = false;
 
             yield return new WaitForSeconds(0.2f);
         }
 
-        if (screenData.AutoAdvanceDelay > 0f)
+        if (slideData.AutoAdvanceDelay > 0f)
         {
             float timer = 0f;
-            while (timer < screenData.AutoAdvanceDelay && !_interactPressed)
+            while (timer < slideData.AutoAdvanceDelay && !_interactPressed)
             {
                 timer += Time.deltaTime;
                 yield return null;
@@ -105,8 +113,8 @@ public class LoreSequenceManager : MonoBehaviour
         PlaySequence(_testSequence);
     }
 
-    public void TestSingleData()
+    public void TestSingleSlide()
     {
-        PlaySingleData(_testData);
+        PlaySingleSlide(_testSlide);
     }
 }
