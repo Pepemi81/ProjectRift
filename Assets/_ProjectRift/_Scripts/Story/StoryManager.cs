@@ -4,9 +4,12 @@ using UnityEngine.Playables;
 
 public class StoryManager : Singleton<StoryManager>
 {
-    [Header("Chapter")]
-    [SerializeField] private StoryChapterData _currentChapter;
+    [Header("Campaign")]
+    [SerializeField] private StoryCampaignData _campaign;
     [SerializeField] private bool _playOnStart = true;
+
+    [Header("Chapter Testing")]
+    [SerializeField] private StoryChapterData _currentChapter;
 
     [Header("Timeline")]
     [SerializeField] private PlayableDirector _timelineDirector;
@@ -14,20 +17,44 @@ public class StoryManager : Singleton<StoryManager>
     [Header("Debug")]
     [SerializeField] private bool _logProgress = true;
 
-    private Coroutine _chapterCoroutine;
+    private Coroutine _storyCoroutine;
     private bool _waitingEventReceived;
     private GameEvent _activeWaitEvent;
 
+    public StoryCampaignData CurrentCampaign => _campaign;
     public StoryChapterData CurrentChapter => _currentChapter;
+    public int CurrentChapterIndex { get; private set; } = -1;
     public int CurrentStepIndex { get; private set; } = -1;
-    public bool IsPlaying => _chapterCoroutine != null;
+    public bool IsPlaying => _storyCoroutine != null;
 
     private void Start()
     {
-        if (_playOnStart)
+        if (!_playOnStart)
+        {
+            return;
+        }
+
+        if (_campaign != null)
+        {
+            PlayCampaign(_campaign);
+        }
+        else
         {
             PlayChapter(_currentChapter);
         }
+    }
+
+    public void PlayCampaign(StoryCampaignData campaign)
+    {
+        if (campaign == null)
+        {
+            Debug.LogWarning("<color=orange>[StoryManager]</color> Cannot play a null campaign.");
+            return;
+        }
+
+        StopCurrentStory();
+        _campaign = campaign;
+        _storyCoroutine = StartCoroutine(ProcessCampaign(campaign));
     }
 
     public void PlayChapter(StoryChapterData chapter)
@@ -38,31 +65,74 @@ public class StoryManager : Singleton<StoryManager>
             return;
         }
 
-        StopCurrentChapter();
+        StopCurrentStory();
         _currentChapter = chapter;
-        _chapterCoroutine = StartCoroutine(ProcessChapter(chapter));
+        CurrentChapterIndex = -1;
+        _storyCoroutine = StartCoroutine(ProcessSingleChapter(chapter));
     }
 
     public void StopCurrentChapter()
     {
-        if (_chapterCoroutine != null)
+        StopCurrentStory();
+    }
+
+    public void StopCurrentStory()
+    {
+        if (_storyCoroutine != null)
         {
-            StopCoroutine(_chapterCoroutine);
-            _chapterCoroutine = null;
+            StopCoroutine(_storyCoroutine);
+            _storyCoroutine = null;
         }
 
         UnsubscribeFromActiveWaitEvent();
+        CurrentChapterIndex = -1;
         CurrentStepIndex = -1;
         _waitingEventReceived = false;
     }
 
     private void OnDisable()
     {
-        StopCurrentChapter();
+        StopCurrentStory();
+    }
+
+    private IEnumerator ProcessCampaign(StoryCampaignData campaign)
+    {
+        Log($"Starting campaign: {campaign.CampaignName}");
+
+        for (int i = 0; i < campaign.Chapters.Count; i++)
+        {
+            StoryChapterData chapter = campaign.Chapters[i];
+
+            if (chapter == null)
+            {
+                Debug.LogWarning($"<color=orange>[StoryManager]</color> Campaign '{campaign.CampaignName}' has a null chapter at index {i}.");
+                continue;
+            }
+
+            CurrentChapterIndex = i;
+            yield return ProcessChapter(chapter);
+        }
+
+        Log($"Campaign finished: {campaign.CampaignName}");
+        _currentChapter = null;
+        CurrentChapterIndex = -1;
+        CurrentStepIndex = -1;
+        _storyCoroutine = null;
+    }
+
+    private IEnumerator ProcessSingleChapter(StoryChapterData chapter)
+    {
+        yield return ProcessChapter(chapter);
+
+        _currentChapter = null;
+        CurrentChapterIndex = -1;
+        CurrentStepIndex = -1;
+        _storyCoroutine = null;
     }
 
     private IEnumerator ProcessChapter(StoryChapterData chapter)
     {
+        _currentChapter = chapter;
         Log($"Starting chapter: {chapter.ChapterName}");
 
         for (int i = 0; i < chapter.Steps.Count; i++)
@@ -73,7 +143,6 @@ public class StoryManager : Singleton<StoryManager>
 
         Log($"Chapter finished: {chapter.ChapterName}");
         CurrentStepIndex = -1;
-        _chapterCoroutine = null;
     }
 
     private IEnumerator ProcessStep(StoryStepData step)

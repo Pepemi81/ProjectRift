@@ -62,6 +62,8 @@ public class MonitorSequenceDirector : MonoBehaviour
         _monitorRenderer.ClearCurrentScreen();
         Debug.LogWarning("<color=cyan>[LoreSequenceManager]</color> Secuencia finalizada. Pantalla restaurada.");
         _sequenceCoroutine = null;
+
+        sequenceData.EventOnComplete?.Invoke();
     }
 
     private IEnumerator ProcessSingleData(MonitorSlideData data)

@@ -9,5 +9,8 @@ using UnityEngine;
 public class MonitorSequenceData : ScriptableObject
 {
     [SerializeField] private List<MonitorSlideData> _slides = new List<MonitorSlideData>();
+    [SerializeField] private GameEvent _eventOnComplete;
+
     public List<MonitorSlideData> Slides => _slides;
+    public GameEvent EventOnComplete => _eventOnComplete;
 }
