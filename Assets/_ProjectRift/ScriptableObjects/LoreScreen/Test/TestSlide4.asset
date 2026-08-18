@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750e724a0806e2449a96e4452fdb37d6, type: 3}
   m_Name: TestSlide4
   m_EditorClassIdentifier: Assembly-CSharp::MonitorSlideData
-  _displayMode: 1
+  _displayMode: 0
   _slidePrefab: {fileID: 3839518848460766100, guid: 814a3e9e0c2186549841b019bb65e923, type: 3}
-  _displayImage: {fileID: 0}
-  _displayText: 
+  _displayImage: {fileID: 21300000, guid: 0e1b7bf0e524ed048be3fee0cf238db6, type: 3}
+  _displayText: "> As\xED que, por favor, no nos mates."
   _autoAdvanceDelay: 1

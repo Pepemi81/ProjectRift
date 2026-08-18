@@ -11,6 +11,7 @@ public class MonitorSlideRenderer : MonoBehaviour
     [Header("Referencias Default UI")]
     [SerializeField] private Image _monitorImage;
     [SerializeField] private TextMeshProUGUI _monitorText;
+    [SerializeField] private GameObject _decorations;
 
     [Header("Contenedor para Prefabs")]
     [SerializeField] private RectTransform _prefabContainer;
@@ -34,6 +35,11 @@ public class MonitorSlideRenderer : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        ClearCurrentScreen();
+    }
+
     public void Initialize(MonitorSlideData data)
     {
         ClearCurrentScreen();
@@ -50,31 +56,28 @@ public class MonitorSlideRenderer : MonoBehaviour
 
     private void SetupDefaultUI(MonitorSlideData data)
     {
-        if (_monitorImage != null)
+        _decorations.SetActive(true);
+
+        _monitorImage.gameObject.SetActive(data.DisplayImage != null);
+        _monitorImage.sprite = data.DisplayImage;
+
+        _monitorText.gameObject.SetActive(!string.IsNullOrEmpty(data.DisplayText));
+
+        if (!string.IsNullOrEmpty(data.DisplayText))
         {
-            _monitorImage.gameObject.SetActive(data.DisplayImage != null);
-            _monitorImage.sprite = data.DisplayImage;
+            StartCoroutine(TypeTextDefault(data.DisplayText));
         }
-
-        if (_monitorText != null)
+        else
         {
-            _monitorText.gameObject.SetActive(!string.IsNullOrEmpty(data.DisplayText));
-
-            if (!string.IsNullOrEmpty(data.DisplayText))
-            {
-                StartCoroutine(TypeTextDefault(data.DisplayText));
-            }
-            else
-            {
-                _isTypingDefault = false;
-            }
+            _isTypingDefault = false;
         }
     }
 
     private void SetupPrefabUI(MonitorSlideData data)
     {
-        if (_monitorImage != null) _monitorImage.gameObject.SetActive(false);
-        if (_monitorText != null) _monitorText.gameObject.SetActive(false);
+        _decorations.SetActive(false);
+        _monitorImage.gameObject.SetActive(false);
+        _monitorText.gameObject.SetActive(false);
 
         if (data.SlidePrefab != null && _prefabContainer != null)
         {
@@ -142,16 +145,12 @@ public class MonitorSlideRenderer : MonoBehaviour
 
         _currentCustomSlide = null;
 
-        if (_monitorImage != null)
-        {
-            _monitorImage.gameObject.SetActive(false);
-            _monitorImage.sprite = null;
-        }
+        _decorations.SetActive(false);
 
-        if (_monitorText != null)
-        {
-            _monitorText.gameObject.SetActive(false);
-            _monitorText.text = string.Empty;
-        }
+        _monitorImage.gameObject.SetActive(false);
+        _monitorImage.sprite = null;
+
+        _monitorText.gameObject.SetActive(false);
+        _monitorText.text = string.Empty;
     }
 }

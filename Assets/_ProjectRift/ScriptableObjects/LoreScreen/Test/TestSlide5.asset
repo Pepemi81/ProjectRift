@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 750e724a0806e2449a96e4452fdb37d6, type: 3}
-  m_Name: TestSlide1
+  m_Name: TestSlide5
   m_EditorClassIdentifier: Assembly-CSharp::MonitorSlideData
   _displayMode: 0
-  _slidePrefab: {fileID: 0}
-  _displayImage: {fileID: 21300000, guid: 75f3f5a7971858b409f98e0d1c10d886, type: 3}
-  _displayText: '> Bienvenido piloto.'
+  _slidePrefab: {fileID: 3839518848460766100, guid: 814a3e9e0c2186549841b019bb65e923, type: 3}
+  _displayImage: {fileID: 21300000, guid: 7e3021f9e56381e45a528ed3d55d13b0, type: 3}
+  _displayText: '> Gracias.'
   _autoAdvanceDelay: 3
