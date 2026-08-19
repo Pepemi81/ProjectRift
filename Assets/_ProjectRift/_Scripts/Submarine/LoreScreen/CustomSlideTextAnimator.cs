@@ -16,7 +16,7 @@ public enum TypingMode
 /// Se coloca en la raíz de un prefab de interfaz personalizado para auto-gestionar 
 /// la animación de escritura en sus componentes TextMeshProUGUI.
 /// </summary>
-public class CustomSlideAnimator : MonoBehaviour
+public class CustomSlideTextAnimator : MonoBehaviour
 {
     [SerializeField] private List<TextMeshProUGUI> _textElements;
     [SerializeField] private TypingMode _typingMode;

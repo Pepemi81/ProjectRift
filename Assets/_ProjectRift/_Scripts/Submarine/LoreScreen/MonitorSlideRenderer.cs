@@ -9,9 +9,9 @@ using System.Collections;
 public class MonitorSlideRenderer : MonoBehaviour
 {
     [Header("Referencias Default UI")]
-    [SerializeField] private Image _monitorImage;
-    [SerializeField] private TextMeshProUGUI _monitorText;
-    [SerializeField] private GameObject _decorations;
+    [SerializeField] private GameObject _defaultUI;
+    [SerializeField] private Image defaultImage;
+    [SerializeField] private TextMeshProUGUI _defaultText;
 
     [Header("Contenedor para Prefabs")]
     [SerializeField] private RectTransform _prefabContainer;
@@ -21,7 +21,7 @@ public class MonitorSlideRenderer : MonoBehaviour
 
     private bool _isTypingDefault;
     private GameObject _instantiatedPrefab;
-    private CustomSlideAnimator _currentCustomSlide;
+    private CustomSlideTextAnimator _currentCustomSlide;
 
     public bool IsFinished
     {
@@ -56,12 +56,12 @@ public class MonitorSlideRenderer : MonoBehaviour
 
     private void SetupDefaultUI(MonitorSlideData data)
     {
-        _decorations.SetActive(true);
+        _defaultUI.SetActive(true);
 
-        _monitorImage.gameObject.SetActive(data.DisplayImage != null);
-        _monitorImage.sprite = data.DisplayImage;
+        defaultImage.gameObject.SetActive(data.DisplayImage != null);
+        defaultImage.sprite = data.DisplayImage;
 
-        _monitorText.gameObject.SetActive(!string.IsNullOrEmpty(data.DisplayText));
+        _defaultText.gameObject.SetActive(!string.IsNullOrEmpty(data.DisplayText));
 
         if (!string.IsNullOrEmpty(data.DisplayText))
         {
@@ -75,22 +75,18 @@ public class MonitorSlideRenderer : MonoBehaviour
 
     private void SetupPrefabUI(MonitorSlideData data)
     {
-        _decorations.SetActive(false);
-        _monitorImage.gameObject.SetActive(false);
-        _monitorText.gameObject.SetActive(false);
+        _defaultUI.SetActive(false);
+        defaultImage.gameObject.SetActive(false);
+        _defaultText.gameObject.SetActive(false);
 
         if (data.SlidePrefab != null && _prefabContainer != null)
         {
             _instantiatedPrefab = Instantiate(data.SlidePrefab, _prefabContainer);
-            _currentCustomSlide = _instantiatedPrefab.GetComponent<CustomSlideAnimator>();
+            _currentCustomSlide = _instantiatedPrefab.GetComponent<CustomSlideTextAnimator>();
 
             if (_currentCustomSlide != null)
             {
                 _currentCustomSlide.Initialize();
-            }
-            else
-            {
-                Debug.LogWarning("<color=orange>[LoreScreenController]</color> El prefab no tiene el componente LoreCustomScreen.");
             }
         }
         else
@@ -104,11 +100,11 @@ public class MonitorSlideRenderer : MonoBehaviour
     private IEnumerator TypeTextDefault(string textToType)
     {
         _isTypingDefault = true;
-        _monitorText.text = string.Empty;
+        _defaultText.text = string.Empty;
 
         for (int i = 0; i < textToType.Length; i++)
         {
-            _monitorText.text += textToType[i];
+            _defaultText.text += textToType[i];
             yield return new WaitForSeconds(_typingSpeed);
         }
 
@@ -124,9 +120,9 @@ public class MonitorSlideRenderer : MonoBehaviour
         else
         {
             StopAllCoroutines();
-            if (_monitorText != null && _monitorText.gameObject.activeSelf)
+            if (_defaultText != null && _defaultText.gameObject.activeSelf)
             {
-                _monitorText.text = fullText;
+                _defaultText.text = fullText;
             }
             _isTypingDefault = false;
         }
@@ -145,12 +141,8 @@ public class MonitorSlideRenderer : MonoBehaviour
 
         _currentCustomSlide = null;
 
-        _decorations.SetActive(false);
-
-        _monitorImage.gameObject.SetActive(false);
-        _monitorImage.sprite = null;
-
-        _monitorText.gameObject.SetActive(false);
-        _monitorText.text = string.Empty;
+        _defaultUI.SetActive(false);
+        defaultImage.sprite = null;
+        _defaultText.text = string.Empty;
     }
 }
