@@ -1,6 +1,7 @@
 using UnityEditor;
 
 [CustomEditor(typeof(MonitorSlideData))]
+[CanEditMultipleObjects]
 public class MonitorSlideDataCE : Editor
 {
     private SerializedProperty _displayMode;
@@ -8,6 +9,7 @@ public class MonitorSlideDataCE : Editor
     private SerializedProperty _displayImage;
     private SerializedProperty _displayText;
     private SerializedProperty _autoAdvanceDelay;
+    private SerializedProperty _audioSettings;
 
     private void OnEnable()
     {
@@ -16,6 +18,7 @@ public class MonitorSlideDataCE : Editor
         _displayImage = serializedObject.FindProperty("_displayImage");
         _displayText = serializedObject.FindProperty("_displayText");
         _autoAdvanceDelay = serializedObject.FindProperty("_autoAdvanceDelay");
+        _audioSettings = serializedObject.FindProperty("_audioSettings");
     }
 
     public override void OnInspectorGUI()
@@ -25,20 +28,32 @@ public class MonitorSlideDataCE : Editor
         EditorGUILayout.PropertyField(_displayMode);
         EditorGUILayout.Space();
 
-        ScreenDisplayMode mode = (ScreenDisplayMode)_displayMode.enumValueIndex;
-
-        if (mode == ScreenDisplayMode.DefaultUI)
+        if (_displayMode.hasMultipleDifferentValues)
         {
             EditorGUILayout.PropertyField(_displayImage);
             EditorGUILayout.PropertyField(_displayText);
-        }
-        else if (mode == ScreenDisplayMode.CustomPrefab)
-        {
             EditorGUILayout.PropertyField(_screenPrefab);
+        }
+        else
+        {
+            ScreenDisplayMode mode = (ScreenDisplayMode)_displayMode.enumValueIndex;
+
+            if (mode == ScreenDisplayMode.DefaultUI)
+            {
+                EditorGUILayout.PropertyField(_displayImage);
+                EditorGUILayout.PropertyField(_displayText);
+            }
+            else if (mode == ScreenDisplayMode.CustomPrefab)
+            {
+                EditorGUILayout.PropertyField(_screenPrefab);
+            }
         }
 
         EditorGUILayout.Space();
         EditorGUILayout.PropertyField(_autoAdvanceDelay);
+
+        EditorGUILayout.Space();
+        EditorGUILayout.PropertyField(_audioSettings, true);
 
         serializedObject.ApplyModifiedProperties();
     }

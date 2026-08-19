@@ -24,11 +24,13 @@ public class CustomSlideTextAnimator : MonoBehaviour
 
     private string[] _originalTexts;
     private bool _isTyping;
+    private System.Action _onCharacterRevealed;
 
     public bool IsFinished => !_isTyping;
 
-    public void Initialize()
+    public void Initialize(System.Action onCharacterRevealed = null)
     {
+        _onCharacterRevealed = onCharacterRevealed;
         _originalTexts = new string[_textElements.Count];
 
         for (int i = 0; i < _textElements.Count; i++)
@@ -77,6 +79,7 @@ public class CustomSlideTextAnimator : MonoBehaviour
                 if (_textElements[j] != null && _originalTexts[j] != null && i < _originalTexts[j].Length)
                 {
                     _textElements[j].text += _originalTexts[j][i];
+                    _onCharacterRevealed?.Invoke();
                 }
             }
             yield return new WaitForSeconds(_typingSpeed);
@@ -98,6 +101,7 @@ public class CustomSlideTextAnimator : MonoBehaviour
             for (int j = 0; j < fullText.Length; j++)
             {
                 _textElements[i].text += fullText[j];
+                _onCharacterRevealed?.Invoke();
                 yield return new WaitForSeconds(_typingSpeed);
             }
         }

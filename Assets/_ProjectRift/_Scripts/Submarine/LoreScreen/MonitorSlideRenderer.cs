@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
@@ -10,7 +11,8 @@ public class MonitorSlideRenderer : MonoBehaviour
 {
     [Header("Referencias Default UI")]
     [SerializeField] private GameObject _defaultUI;
-    [SerializeField] private Image defaultImage;
+    [FormerlySerializedAs("defaultImage")]
+    [SerializeField] private Image _defaultImage;
     [SerializeField] private TextMeshProUGUI _defaultText;
 
     [Header("Contenedor para Prefabs")]
@@ -18,6 +20,7 @@ public class MonitorSlideRenderer : MonoBehaviour
 
     [Header("Ajustes")]
     [SerializeField] private float _typingSpeed = 0.05f;
+    [SerializeField] private MonitorSlideAudioPlayer _audioPlayer;
 
     private bool _isTypingDefault;
     private GameObject _instantiatedPrefab;
@@ -35,6 +38,14 @@ public class MonitorSlideRenderer : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if (_audioPlayer == null)
+        {
+            _audioPlayer = GetComponent<MonitorSlideAudioPlayer>();
+        }
+    }
+
     private void Start()
     {
         ClearCurrentScreen();
@@ -43,6 +54,8 @@ public class MonitorSlideRenderer : MonoBehaviour
     public void Initialize(MonitorSlideData data)
     {
         ClearCurrentScreen();
+
+        _audioPlayer?.BeginSlide(data.AudioSettings);
 
         if (data.DisplayMode == ScreenDisplayMode.DefaultUI)
         {
@@ -58,14 +71,14 @@ public class MonitorSlideRenderer : MonoBehaviour
     {
         _defaultUI.SetActive(true);
 
-        defaultImage.gameObject.SetActive(data.DisplayImage != null);
-        defaultImage.sprite = data.DisplayImage;
+        _defaultImage.gameObject.SetActive(data.DisplayImage != null);
+        _defaultImage.sprite = data.DisplayImage;
 
         _defaultText.gameObject.SetActive(!string.IsNullOrEmpty(data.DisplayText));
 
         if (!string.IsNullOrEmpty(data.DisplayText))
         {
-            StartCoroutine(TypeTextDefault(data.DisplayText));
+            StartCoroutine(TypeTextDefault(data));
         }
         else
         {
@@ -76,7 +89,7 @@ public class MonitorSlideRenderer : MonoBehaviour
     private void SetupPrefabUI(MonitorSlideData data)
     {
         _defaultUI.SetActive(false);
-        defaultImage.gameObject.SetActive(false);
+        _defaultImage.gameObject.SetActive(false);
         _defaultText.gameObject.SetActive(false);
 
         if (data.SlidePrefab != null && _prefabContainer != null)
@@ -86,7 +99,7 @@ public class MonitorSlideRenderer : MonoBehaviour
 
             if (_currentCustomSlide != null)
             {
-                _currentCustomSlide.Initialize();
+                _currentCustomSlide.Initialize(() => _audioPlayer?.NotifyCharacterRevealed(data.AudioSettings));
             }
         }
         else
@@ -97,14 +110,17 @@ public class MonitorSlideRenderer : MonoBehaviour
         _isTypingDefault = false;
     }
 
-    private IEnumerator TypeTextDefault(string textToType)
+    private IEnumerator TypeTextDefault(MonitorSlideData data)
     {
         _isTypingDefault = true;
+        string textToType = data.DisplayText;
         _defaultText.text = string.Empty;
 
         for (int i = 0; i < textToType.Length; i++)
         {
             _defaultText.text += textToType[i];
+            _audioPlayer?.NotifyCharacterRevealed(data.AudioSettings);
+
             yield return new WaitForSeconds(_typingSpeed);
         }
 
@@ -140,9 +156,10 @@ public class MonitorSlideRenderer : MonoBehaviour
         }
 
         _currentCustomSlide = null;
+        _audioPlayer?.StopSlideAudio();
 
         _defaultUI.SetActive(false);
-        defaultImage.sprite = null;
+        _defaultImage.sprite = null;
         _defaultText.text = string.Empty;
     }
 }

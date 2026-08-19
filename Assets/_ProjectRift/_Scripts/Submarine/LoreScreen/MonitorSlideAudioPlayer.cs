@@ -3,24 +3,21 @@ using UnityEngine;
 [System.Serializable]
 public class MonitorSlideAudioSettings
 {
-    [Header("Slide Start")]
-    [SerializeField] private AudioClip _slideStartClip;
+    [Header("On Slide Start")]
+    [SerializeField] private AudioClip _slideStartSound;
     [SerializeField, Range(0f, 1f)] private float _slideStartVolume = 1f;
 
-    [Header("Typing")]
-    [SerializeField] private AudioClip _typingClip;
-    [SerializeField] private bool _playTypingPerCharacter = true;
-    [SerializeField, Min(1)] private int _typingCharacterInterval = 3;
-    [SerializeField, Min(0f)] private float _typingMinDelay = 0.04f;
+    [Header("On Typing")]
+    [SerializeField] private AudioClip _typingSound;
+    [Tooltip("Cada cuantos caracteres se permite sonar")]
+    [SerializeField, Min(1)] private int _characterInterval = 2;
     [SerializeField, Range(0f, 1f)] private float _typingVolume = 0.5f;
     [SerializeField] private Vector2 _typingPitchRange = new Vector2(0.96f, 1.04f);
 
-    public AudioClip SlideStartClip => _slideStartClip;
+    public AudioClip SlideStartSound => _slideStartSound;
     public float SlideStartVolume => _slideStartVolume;
-    public AudioClip TypingClip => _typingClip;
-    public bool PlayTypingPerCharacter => _playTypingPerCharacter;
-    public int TypingCharacterInterval => Mathf.Max(1, _typingCharacterInterval);
-    public float TypingMinDelay => Mathf.Max(0f, _typingMinDelay);
+    public AudioClip TypingSound => _typingSound;
+    public int TypingCharacterInterval => Mathf.Max(1, _characterInterval);
     public float TypingVolume => _typingVolume;
     public Vector2 TypingPitchRange => _typingPitchRange;
 }
@@ -65,50 +62,33 @@ public class MonitorSlideAudioPlayer : MonoBehaviour
     public void BeginSlide(MonitorSlideAudioSettings settings)
     {
         ResetTypingState();
-        PlaySlideStart(settings);
+        PlaySlideStartSound(settings);
     }
 
-    public void PlaySlideStart(MonitorSlideAudioSettings settings = null)
+    public void PlaySlideStartSound(MonitorSlideAudioSettings settings = null)
     {
-        MonitorSlideAudioSettings resolvedSettings = ResolveSettings(settings);
-        if (resolvedSettings == null || resolvedSettings.SlideStartClip == null)
-        {
-            return;
-        }
+        if (settings.SlideStartSound == null) return;
 
-        PlayOneShot(resolvedSettings.SlideStartClip, resolvedSettings.SlideStartVolume, 1f);
+        PlayOneShot(settings.SlideStartSound, settings.SlideStartVolume, 1f);
     }
 
-    public void NotifyCharacterRevealed(MonitorSlideAudioSettings settings = null)
+    public void NotifyCharacterRevealed(MonitorSlideAudioSettings settings)
     {
-        MonitorSlideAudioSettings resolvedSettings = ResolveSettings(settings);
-        if (resolvedSettings == null ||
-            !resolvedSettings.PlayTypingPerCharacter ||
-            resolvedSettings.TypingClip == null)
-        {
-            return;
-        }
+        if (settings.TypingSound == null) return;
 
         _charactersSinceTypingSound++;
-        if (_charactersSinceTypingSound < resolvedSettings.TypingCharacterInterval)
-        {
-            return;
-        }
 
-        if (Time.time - _lastTypingSoundTime < resolvedSettings.TypingMinDelay)
-        {
-            return;
-        }
+        if (_charactersSinceTypingSound < settings.TypingCharacterInterval) return;
+
 
         _charactersSinceTypingSound = 0;
-        _lastTypingSoundTime = Time.time;
 
-        Vector2 pitchRange = resolvedSettings.TypingPitchRange;
+        Vector2 pitchRange = settings.TypingPitchRange;
         float minPitch = Mathf.Min(pitchRange.x, pitchRange.y);
         float maxPitch = Mathf.Max(pitchRange.x, pitchRange.y);
         float pitch = Random.Range(minPitch, maxPitch);
 
-        PlayOneShot(resolvedSettings.TypingClip, resolvedSettings.TypingVolume, pitch);
+        PlayOneShot(settings.TypingSound, settings.TypingVolume, pitch);
     }
 
     public void ResetTypingState()
@@ -119,17 +99,8 @@ public class MonitorSlideAudioPlayer : MonoBehaviour
 
     public void StopSlideAudio()
     {
-        if (_audioSource != null)
-        {
-            _audioSource.Stop();
-        }
-
+        _audioSource.Stop();
         ResetTypingState();
-    }
-
-    private MonitorSlideAudioSettings ResolveSettings(MonitorSlideAudioSettings settings)
-    {
-        return settings ?? _fallbackSettings;
     }
 
     private void PlayOneShot(AudioClip clip, float volume, float pitch)
