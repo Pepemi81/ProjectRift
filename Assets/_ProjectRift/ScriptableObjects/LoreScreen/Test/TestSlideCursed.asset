@@ -19,10 +19,8 @@ MonoBehaviour:
   _autoAdvanceDelay: 3
   _audioSettings:
     _slideStartSound: {fileID: 8300000, guid: 7413503bfd70ea84ca3dddd278c0640f, type: 3}
-    _slideStartVolume: 1
+    _slideStartVolume: 0.7
     _typingSound: {fileID: 0}
-    _playTypingPerCharacter: 1
-    _typingCharacterInterval: 3
-    _typingMinDelay: 0.04
+    _characterInterval: 1
     _typingVolume: 0.5
     _typingPitchRange: {x: 0.96, y: 1.04}

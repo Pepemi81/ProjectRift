@@ -46,10 +46,7 @@ public class ProximityAxisController
 
     private bool IsSegmentActive(int index, int activeSegments, int segmentCount)
     {
-        if (activeSegments <= 0)
-        {
-            return false;
-        }
+        if (activeSegments <= 0) return false;
 
         return _fillFromCenter
             ? index < activeSegments
