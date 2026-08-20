@@ -12,7 +12,7 @@ public class ProximityAxisController
     public ProximityAxis Axis => _axis;
     public int SegmentCount => _segments != null ? _segments.Length : 0;
 
-    public void Apply(int activeSegments, bool blinkOn)
+    public void SetLights(int activeSegments, bool blinkOn)
     {
         int segmentCount = SegmentCount;
         activeSegments = Mathf.Clamp(activeSegments, 0, segmentCount);
@@ -39,9 +39,9 @@ public class ProximityAxisController
         }
     }
 
-    public void Clear()
+    public void TurnOff()
     {
-        Apply(0, false);
+        SetLights(0, false);
     }
 
     private bool IsSegmentActive(int index, int activeSegments, int segmentCount)

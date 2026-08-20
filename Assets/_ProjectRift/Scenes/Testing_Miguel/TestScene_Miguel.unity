@@ -2027,6 +2027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SubmarineProximityDisplay
   _raycaster: {fileID: 736128036}
+  _activeOnStart: 1
   _axisDisplays:
   - _axis: 4
     _fillFromCenter: 1
@@ -2083,12 +2084,12 @@ MonoBehaviour:
     _axisLight: {fileID: 875904412}
     _axisLightIntensity: 0.01
   _maxProximityValue: 0.25
+  _activationDeadZone: 0.02
   _blinkRates:
   - 1
   - 2
   - 4
   - 6
-  _activationDeadZone: 0.02
 --- !u!43 &188542898
 Mesh:
   m_ObjectHideFlags: 0
