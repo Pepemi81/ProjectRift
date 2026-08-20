@@ -5,19 +5,19 @@ using UnityEngine;
 /// ScriptableObject que almacena una lista ordenada de diapositivas (MonitorSlideData) 
 /// para reproducirlas de forma consecutiva en el monitor.
 /// </summary>
-[RequireComponent(typeof(MonitorSlideRenderer))]
+[RequireComponent(typeof(MonitorSlideManager))]
 public class MonitorSequenceDirector : MonoBehaviour
 {
     [SerializeField] private MonitorSlideData _testSlide;
     [SerializeField] private MonitorSequenceData _testSequence;
 
-    private MonitorSlideRenderer _monitorRenderer;
+    private MonitorSlideManager _monitorManager;
     private Coroutine _sequenceCoroutine;
     private bool _interactPressed;
 
     private void Awake()
     {
-        _monitorRenderer = GetComponent<MonitorSlideRenderer>();
+        _monitorManager = GetComponent<MonitorSlideManager>();
     }
 
     public void PlaySequence(MonitorSequenceData sequenceData)
@@ -49,7 +49,7 @@ public class MonitorSequenceDirector : MonoBehaviour
             StopCoroutine(_sequenceCoroutine);
         }
 
-        _sequenceCoroutine = StartCoroutine(ProcessSingleData(data));
+        _sequenceCoroutine = StartCoroutine(ProcessSlide(data));
     }
 
     private IEnumerator ProcessSequence(MonitorSequenceData sequenceData)
@@ -59,32 +59,32 @@ public class MonitorSequenceDirector : MonoBehaviour
             yield return StartCoroutine(ProcessScreenData(screenData));
         }
 
-        _monitorRenderer.ClearCurrentScreen();
+        _monitorManager.ClearCurrentScreen();
         Debug.LogWarning("<color=cyan>[LoreSequenceManager]</color> Secuencia finalizada. Pantalla restaurada.");
         _sequenceCoroutine = null;
 
         sequenceData.EventOnComplete?.Invoke();
     }
 
-    private IEnumerator ProcessSingleData(MonitorSlideData data)
+    private IEnumerator ProcessSlide(MonitorSlideData data)
     {
         yield return StartCoroutine(ProcessScreenData(data));
 
-        _monitorRenderer.ClearCurrentScreen();
-        Debug.LogWarning("<color=cyan>[LoreSequenceManager]</color> Data individual finalizado. Pantalla restaurada.");
+        _monitorManager.ClearCurrentScreen();
+        Debug.LogWarning("<color=cyan>[LoreSequenceManager]</color> Slide individual finalizado. Pantalla restaurada.");
         _sequenceCoroutine = null;
     }
 
     private IEnumerator ProcessScreenData(MonitorSlideData slideData)
     {
-        _monitorRenderer.Initialize(slideData);
+        _monitorManager.Initialize(slideData);
         _interactPressed = false;
 
-        yield return new WaitUntil(() => _monitorRenderer.IsFinished || _interactPressed);
+        yield return new WaitUntil(() => _monitorManager.IsFinished || _interactPressed);
 
-        if (_interactPressed && !_monitorRenderer.IsFinished)
+        if (_interactPressed && !_monitorManager.IsFinished)
         {
-            _monitorRenderer.SkipTyping(slideData.DisplayText);
+            _monitorManager.SkipTyping(slideData.DisplayText);
             _interactPressed = false;
 
             yield return new WaitForSeconds(0.2f);

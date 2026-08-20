@@ -7,13 +7,14 @@ using System.Collections;
 /// <summary>
 /// Determina si la diapositiva utiliza el diseño por defecto del Canvas o un Prefab modular.
 /// </summary>
-public class MonitorSlideRenderer : MonoBehaviour
+public class MonitorSlideManager : MonoBehaviour
 {
     [Header("Referencias Default UI")]
     [SerializeField] private GameObject _defaultUI;
     [FormerlySerializedAs("defaultImage")]
     [SerializeField] private Image _defaultImage;
     [SerializeField] private TextMeshProUGUI _defaultText;
+    [SerializeField] private ImageBlink _dialogueEndArrow;
 
     [Header("Contenedor para Prefabs")]
     [SerializeField] private RectTransform _prefabContainer;
@@ -22,7 +23,7 @@ public class MonitorSlideRenderer : MonoBehaviour
     [SerializeField] private float _typingSpeed = 0.05f;
     [SerializeField] private MonitorSlideAudioPlayer _audioPlayer;
 
-    private bool _isTypingDefault;
+    private bool _isTyping;
     private GameObject _instantiatedPrefab;
     private CustomSlideTextAnimator _currentCustomSlide;
 
@@ -34,7 +35,7 @@ public class MonitorSlideRenderer : MonoBehaviour
             {
                 return _currentCustomSlide.IsFinished;
             }
-            return !_isTypingDefault;
+            return !_isTyping;
         }
     }
 
@@ -82,7 +83,7 @@ public class MonitorSlideRenderer : MonoBehaviour
         }
         else
         {
-            _isTypingDefault = false;
+            _isTyping = false;
         }
     }
 
@@ -107,14 +108,15 @@ public class MonitorSlideRenderer : MonoBehaviour
             Debug.LogWarning("<color=orange>[LoreScreenController]</color> Falta asignar el prefab o el RectTransform del contenedor.");
         }
 
-        _isTypingDefault = false;
+        _isTyping = false;
     }
 
     private IEnumerator TypeTextDefault(MonitorSlideData data)
     {
-        _isTypingDefault = true;
+        _isTyping = true;
         string textToType = data.DisplayText;
         _defaultText.text = string.Empty;
+        _dialogueEndArrow.SetHidden();
 
         for (int i = 0; i < textToType.Length; i++)
         {
@@ -124,7 +126,8 @@ public class MonitorSlideRenderer : MonoBehaviour
             yield return new WaitForSeconds(_typingSpeed);
         }
 
-        _isTypingDefault = false;
+        _isTyping = false;
+        _dialogueEndArrow.Blink();
     }
 
     public void SkipTyping(string fullText)
@@ -140,14 +143,14 @@ public class MonitorSlideRenderer : MonoBehaviour
             {
                 _defaultText.text = fullText;
             }
-            _isTypingDefault = false;
+            _isTyping = false;
         }
     }
 
     public void ClearCurrentScreen()
     {
         StopAllCoroutines();
-        _isTypingDefault = false;
+        _isTyping = false;
 
         if (_instantiatedPrefab != null)
         {

@@ -4,6 +4,7 @@ using UnityEditor;
 [CanEditMultipleObjects]
 public class MonitorSlideDataCE : Editor
 {
+    private SerializedProperty _script;
     private SerializedProperty _displayMode;
     private SerializedProperty _screenPrefab;
     private SerializedProperty _displayImage;
@@ -13,6 +14,7 @@ public class MonitorSlideDataCE : Editor
 
     private void OnEnable()
     {
+        _script = serializedObject.FindProperty("m_Script");
         _displayMode = serializedObject.FindProperty("_displayMode");
         _screenPrefab = serializedObject.FindProperty("_slidePrefab");
         _displayImage = serializedObject.FindProperty("_displayImage");
@@ -24,6 +26,14 @@ public class MonitorSlideDataCE : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+
+        if (_script != null)
+        {
+            using (new EditorGUI.DisabledScope(true))
+            {
+                EditorGUILayout.PropertyField(_script);
+            }
+        }
 
         EditorGUILayout.PropertyField(_displayMode);
         EditorGUILayout.Space();

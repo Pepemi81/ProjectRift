@@ -6,6 +6,7 @@ public class MonitorSequenceDirectorCE : Editor
 {
     private SerializedProperty _testSlide;
     private SerializedProperty _testSequence;
+    private SerializedProperty _script;
 
     public override void OnInspectorGUI()
     {
@@ -13,8 +14,17 @@ public class MonitorSequenceDirectorCE : Editor
 
         serializedObject.Update();
 
+        _script = serializedObject.FindProperty("m_Script");
         _testSlide = serializedObject.FindProperty("_testSlide");
         _testSequence = serializedObject.FindProperty("_testSequence");
+
+        if (_script != null)
+        {
+            using (new EditorGUI.DisabledScope(true))
+            {
+                EditorGUILayout.PropertyField(_script);
+            }
+        }
 
         EditorGUILayout.Space();
         GUILayout.Label("Testing", EditorStyles.boldLabel);

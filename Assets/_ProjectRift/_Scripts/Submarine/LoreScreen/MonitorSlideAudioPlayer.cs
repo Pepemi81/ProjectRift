@@ -29,8 +29,6 @@ public class MonitorSlideAudioPlayer : MonoBehaviour
     [SerializeField] private MonitorSlideAudioSettings _fallbackSettings;
 
     private int _charactersSinceTypingSound;
-    private float _lastTypingSoundTime = float.NegativeInfinity;
-
     public MonitorSlideAudioSettings FallbackSettings => _fallbackSettings;
 
     private void Awake()
@@ -61,7 +59,7 @@ public class MonitorSlideAudioPlayer : MonoBehaviour
 
     public void BeginSlide(MonitorSlideAudioSettings settings)
     {
-        ResetTypingState();
+        _charactersSinceTypingSound = 0;
         PlaySlideStartSound(settings);
     }
 
@@ -91,16 +89,10 @@ public class MonitorSlideAudioPlayer : MonoBehaviour
         PlayOneShot(settings.TypingSound, settings.TypingVolume, pitch);
     }
 
-    public void ResetTypingState()
-    {
-        _charactersSinceTypingSound = 0;
-        _lastTypingSoundTime = float.NegativeInfinity;
-    }
-
     public void StopSlideAudio()
     {
         _audioSource.Stop();
-        ResetTypingState();
+        _charactersSinceTypingSound = 0;
     }
 
     private void PlayOneShot(AudioClip clip, float volume, float pitch)
