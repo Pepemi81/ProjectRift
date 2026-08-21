@@ -10,17 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9f2de62de62387418c0fac6f16db90e, type: 3}
-  m_Name: CH03_EnableControls
+  m_Name: CH07_End
   m_EditorClassIdentifier: Assembly-CSharp::StoryChapterData
-  _chapterName: 'CH03: Enable Controls'
+  _chapterName: 'CH07: End'
   _summary: 
-  _steps:
-  - _stepName: Step principal
-    _notes: 
-    _eventsOnStart: []
-    _waitForEvent: {fileID: 0}
-    _timelineAsset: {fileID: 0}
-    _waitForTimelineToFinish: 0
-    _delayAfterConditions: 2
-    _eventsOnComplete:
-    - {fileID: 0}
+  _steps: []

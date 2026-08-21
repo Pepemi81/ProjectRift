@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9f2de62de62387418c0fac6f16db90e, type: 3}
-  m_Name: CH01_DeployHardware
+  m_Name: ChapterTestDeployHardware
   m_EditorClassIdentifier: Assembly-CSharp::StoryChapterData
   _chapterName: 'CH01: Deploy Hardware'
   _summary: Test de llamada de eventos y uso de timeline
