@@ -41,6 +41,7 @@ Shader "ProjectRift/UI/CRT Monitor Overlay"
                 float4 vertex : POSITION;
                 float4 color : COLOR;
                 float2 uv : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f
@@ -48,6 +49,7 @@ Shader "ProjectRift/UI/CRT Monitor Overlay"
                 float4 vertex : SV_POSITION;
                 float4 color : COLOR;
                 float2 uv : TEXCOORD0;
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             sampler2D _MainTex;
@@ -65,6 +67,9 @@ Shader "ProjectRift/UI/CRT Monitor Overlay"
             v2f vert(appdata v)
             {
                 v2f o;
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.color = v.color;
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
@@ -78,6 +83,8 @@ Shader "ProjectRift/UI/CRT Monitor Overlay"
 
             fixed4 frag(v2f i) : SV_Target
             {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+
                 float time = _Time.y;
 
                 float scanlinePattern = step(0.5, frac(i.uv.y * _ScanlineCount));

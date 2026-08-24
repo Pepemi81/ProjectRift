@@ -1,11 +1,11 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class BlackScreen : MonoBehaviour
 {
     [SerializeField] private Transform _targetTransform;
-    [SerializeField, Space] private Vector3 _offset;
+    [SerializeField, Space] private Vector3 _distanceOffset;
+    [SerializeField, Space] private Vector3 _angleOffset;
     [SerializeField, Space] private bool _isTracking;
     [SerializeField] private bool _searchTargetOnEnable;
     [SerializeField] private bool _dontDestroyOnLoad;
@@ -41,6 +41,9 @@ public class BlackScreen : MonoBehaviour
     {
         if (!_isTracking || _targetTransform == null) return;
 
-        transform.position = _targetTransform.position + _offset;
+        transform.SetPositionAndRotation(
+            _targetTransform.TransformPoint(_distanceOffset),
+            _targetTransform.rotation * Quaternion.Euler(_angleOffset)
+        );
     }
 }
