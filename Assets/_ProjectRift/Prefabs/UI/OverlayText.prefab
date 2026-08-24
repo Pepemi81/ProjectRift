@@ -102,7 +102,7 @@ MonoBehaviour:
   _targetText: {fileID: 5793767881890290376}
   _hiddenAlpha: 0
   _visibleAlpha: 1
-  _onEnableBehaviour: 3
+  _onEnableBehaviour: 0
   _duration: 3
   _ease: 7
   _useUnscaledTime: 0

@@ -1,24 +1,46 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BlackScreen : MonoBehaviour
 {
-    [SerializeField] private Transform _trackedTransform;
+    [SerializeField] private Transform _targetTransform;
     [SerializeField, Space] private Vector3 _offset;
     [SerializeField, Space] private bool _isTracking;
-    [SerializeField] private bool _searchMainCam;
+    [SerializeField] private bool _searchTargetOnEnable;
+    [SerializeField] private bool _dontDestroyOnLoad;
 
     private void OnEnable()
     {
-        if (!_searchMainCam) return;
+        if (_dontDestroyOnLoad) DontDestroyOnLoad(this.gameObject);
 
-        _trackedTransform = Camera.main.transform;
+        FindTarget();
+
+        SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
+    private void OnDisable() => SceneManager.sceneLoaded -= HandleSceneLoaded;
 
-    private void Update()
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode) => FindTarget();
+
+    private void FindTarget()
     {
-        if (!_isTracking) return;
+        if (!_searchTargetOnEnable) return;
 
-        transform.position = _trackedTransform.position + _offset;
+        if (Camera.main != null)
+        {
+            _targetTransform = Camera.main.transform;
+        }
+        else
+        {
+            Debug.LogWarning("<color=orange>[BlackScreen]</color> No se encontró Camera.main en la escena cargada.");
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (!_isTracking || _targetTransform == null) return;
+
+        transform.position = _targetTransform.position + _offset;
     }
 }

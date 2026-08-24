@@ -104,10 +104,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0abeaa0b13d44ab31ef68f8b57e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlackScreen
-  _trackedTransform: {fileID: 0}
+  _targetTransform: {fileID: 0}
   _offset: {x: 0, y: 0, z: 0.75}
   _isTracking: 1
-  _searchMainCam: 0
+  _searchTargetOnEnable: 1
+  _dontDestroyOnLoad: 0
 --- !u!114 &5413286481906682502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +125,7 @@ MonoBehaviour:
   AlphaPropertyName: _Alpha
   _hiddenAlpha: 0
   _visibleAlpha: 1
-  _onEnableBehaviour: 3
+  _onEnableBehaviour: 0
   _duration: 3
   _ease: 7
   _useUnscaledTime: 0

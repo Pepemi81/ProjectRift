@@ -17,13 +17,22 @@ MonoBehaviour:
     sfx for the submarine dropdown and the initial tutorial screens for the startuo
     of the submarine.
   _steps:
+  - _stepName: Fade from black
+    _notes: 
+    _eventsOnStart:
+    - {fileID: 11400000, guid: 3627188ec97ca5248898ead864b39d9c, type: 2}
+    _waitForEvent: {fileID: 11400000, guid: 1e51a37fa2f5e7f428c45b639254abd2, type: 2}
+    _timelineAsset: {fileID: 0}
+    _waitForTimelineToFinish: 1
+    _delayAfterConditions: 0
+    _eventsOnComplete: []
   - _stepName: Hatch timeline
     _notes: 
     _eventsOnStart: []
     _waitForEvent: {fileID: 0}
     _timelineAsset: {fileID: 0}
     _waitForTimelineToFinish: 1
-    _delayAfterConditions: 2
+    _delayAfterConditions: 0
     _eventsOnComplete: []
   - _stepName: Submarine dropdown timeline
     _notes: 
@@ -31,7 +40,7 @@ MonoBehaviour:
     _waitForEvent: {fileID: 0}
     _timelineAsset: {fileID: 0}
     _waitForTimelineToFinish: 1
-    _delayAfterConditions: 2
+    _delayAfterConditions: 0
     _eventsOnComplete: []
   - _stepName: Screen prompt for startup
     _notes: 
@@ -39,5 +48,5 @@ MonoBehaviour:
     _waitForEvent: {fileID: 0}
     _timelineAsset: {fileID: 0}
     _waitForTimelineToFinish: 1
-    _delayAfterConditions: 2
+    _delayAfterConditions: 0
     _eventsOnComplete: []
