@@ -17,20 +17,18 @@ MonoBehaviour:
   _steps:
   - _stepName: Animacion de despliegue
     _notes: Se llama al timeline
-    _eventsOnStart:
-    - {fileID: 11400000, guid: 3627188ec97ca5248898ead864b39d9c, type: 2}
+    _eventsOnStart: []
     _waitForEvent: {fileID: 0}
     _timelineAsset: {fileID: 11400000, guid: 3d938a19309f766499a31f0eee4d84b9, type: 2}
-    _waitForTimelineToFinish: 0
-    _delayAfterConditions: 2
-    _eventsOnComplete:
-    - {fileID: 11400000, guid: d2eab6b14ef3e004f87d7b40d48fbada, type: 2}
+    _waitForTimelineToFinish: 1
+    _delayAfterConditions: 1
+    _eventsOnComplete: []
   - _stepName: Luz en rojo
     _notes: Se llama al timeline
     _eventsOnStart: []
     _waitForEvent: {fileID: 0}
     _timelineAsset: {fileID: 11400000, guid: 3698091dd7089d345a13daf70a285ece, type: 2}
     _waitForTimelineToFinish: 1
-    _delayAfterConditions: 2
+    _delayAfterConditions: 1
     _eventsOnComplete:
     - {fileID: 11400000, guid: df3644cd932e8c94b8a98841f383eed0, type: 2}

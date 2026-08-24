@@ -22,8 +22,8 @@ MonoBehaviour:
     _eventsOnStart:
     - {fileID: 11400000, guid: 3627188ec97ca5248898ead864b39d9c, type: 2}
     _waitForEvent: {fileID: 11400000, guid: 1e51a37fa2f5e7f428c45b639254abd2, type: 2}
-    _timelineAsset: {fileID: 0}
-    _waitForTimelineToFinish: 1
+    _timelineAsset: {fileID: 11400000, guid: d5fb95400e1fa954794ffaf70e231290, type: 2}
+    _waitForTimelineToFinish: 0
     _delayAfterConditions: 0
     _eventsOnComplete: []
   - _stepName: Hatch timeline
