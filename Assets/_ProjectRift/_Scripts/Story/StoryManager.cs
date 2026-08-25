@@ -9,7 +9,7 @@ public class StoryManager : Singleton<StoryManager>
     [SerializeField] private bool _playOnStart = true;
 
     [Header("Chapter Testing")]
-    [SerializeField] private StoryChapterData _currentChapter;
+    [SerializeField] private StoryChapterData _testChapter;
 
     [Header("Timeline")]
     [SerializeField] private PlayableDirector _timelineDirector;
@@ -22,10 +22,11 @@ public class StoryManager : Singleton<StoryManager>
     private GameEvent _activeWaitEvent;
 
     public StoryCampaignData CurrentCampaign => _campaign;
-    public StoryChapterData CurrentChapter => _currentChapter;
+    public StoryChapterData CurrentChapter => _testChapter;
     public int CurrentChapterIndex { get; private set; } = -1;
     public int CurrentStepIndex { get; private set; } = -1;
     public bool IsPlaying => _storyCoroutine != null;
+
 
     private void Start()
     {
@@ -40,9 +41,15 @@ public class StoryManager : Singleton<StoryManager>
         }
         else
         {
-            PlayChapter(_currentChapter);
+            PlayChapter(_testChapter);
         }
     }
+
+    private void OnDisable()
+    {
+        StopCurrentStory();
+    }
+
 
     public void PlayCampaign(StoryCampaignData campaign)
     {
@@ -66,7 +73,7 @@ public class StoryManager : Singleton<StoryManager>
         }
 
         StopCurrentStory();
-        _currentChapter = chapter;
+        _testChapter = chapter;
         CurrentChapterIndex = -1;
         _storyCoroutine = StartCoroutine(ProcessSingleChapter(chapter));
     }
@@ -90,10 +97,8 @@ public class StoryManager : Singleton<StoryManager>
         _waitingEventReceived = false;
     }
 
-    private void OnDisable()
-    {
-        StopCurrentStory();
-    }
+
+    #region Story Flow
 
     private IEnumerator ProcessCampaign(StoryCampaignData campaign)
     {
@@ -114,25 +119,19 @@ public class StoryManager : Singleton<StoryManager>
         }
 
         Log($"Campaign finished: {campaign.CampaignName}");
-        _currentChapter = null;
-        CurrentChapterIndex = -1;
-        CurrentStepIndex = -1;
-        _storyCoroutine = null;
+        ClearPlaybackState();
     }
 
     private IEnumerator ProcessSingleChapter(StoryChapterData chapter)
     {
         yield return ProcessChapter(chapter);
 
-        _currentChapter = null;
-        CurrentChapterIndex = -1;
-        CurrentStepIndex = -1;
-        _storyCoroutine = null;
+        ClearPlaybackState();
     }
 
     private IEnumerator ProcessChapter(StoryChapterData chapter)
     {
-        _currentChapter = chapter;
+        _testChapter = chapter;
         Log($"Starting chapter: {chapter.ChapterName}");
 
         for (int i = 0; i < chapter.Steps.Count; i++)
@@ -145,12 +144,13 @@ public class StoryManager : Singleton<StoryManager>
         CurrentStepIndex = -1;
     }
 
+    #endregion
+
+    #region Step Flow
+
     private IEnumerator ProcessStep(StoryStepData step)
     {
-        if (step == null)
-        {
-            yield break;
-        }
+        if (step == null) yield break;
 
         Log($"Step started: {step.StepName}");
 
@@ -183,7 +183,7 @@ public class StoryManager : Singleton<StoryManager>
     {
         if (_timelineDirector == null)
         {
-            Debug.LogWarning($"<color=orange>[StoryManager]</color> Step '{step.StepName}' has a Timeline Asset but no PlayableDirector assigned.");
+            Debug.LogWarning($"<color=orange>[StoryManager]</color> Timeline director has not been assigned");
             yield break;
         }
 
@@ -200,6 +200,10 @@ public class StoryManager : Singleton<StoryManager>
             yield return null;
         }
     }
+
+    #endregion
+
+    #region Events logic
 
     private void SubscribeToWaitEvent(GameEvent gameEvent)
     {
@@ -244,6 +248,18 @@ public class StoryManager : Singleton<StoryManager>
         }
     }
 
+    #endregion
+
+    #region Utility
+
+    private void ClearPlaybackState()
+    {
+        _testChapter = null;
+        CurrentChapterIndex = -1;
+        CurrentStepIndex = -1;
+        _storyCoroutine = null;
+    }
+
     private void Log(string message)
     {
         if (_logProgress)
@@ -251,4 +267,6 @@ public class StoryManager : Singleton<StoryManager>
             Debug.LogWarning($"<color=cyan>[StoryManager]</color> {message}");
         }
     }
+
+    #endregion
 }

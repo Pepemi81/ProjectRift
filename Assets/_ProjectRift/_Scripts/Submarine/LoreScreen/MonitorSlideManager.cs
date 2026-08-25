@@ -1,7 +1,6 @@
-using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 /// <summary>
@@ -11,7 +10,7 @@ public class MonitorSlideManager : MonoBehaviour
 {
     [Header("Referencias Default UI")]
     [SerializeField] private GameObject _defaultUI;
-    [FormerlySerializedAs("defaultImage")]
+    [SerializeField] private GameObject _welcomeScreen;
     [SerializeField] private Image _defaultImage;
     [SerializeField] private TextMeshProUGUI _defaultText;
     [SerializeField] private ImageBlink _dialogueEndArrow;
@@ -49,7 +48,7 @@ public class MonitorSlideManager : MonoBehaviour
 
     private void Start()
     {
-        ClearCurrentScreen();
+        ShowWelcomeScreen();
     }
 
     public void Initialize(MonitorSlideData data)
@@ -161,8 +160,15 @@ public class MonitorSlideManager : MonoBehaviour
         _currentCustomSlide = null;
         _audioPlayer?.StopSlideAudio();
 
+        _welcomeScreen.SetActive(false);
         _defaultUI.SetActive(false);
         _defaultImage.sprite = null;
         _defaultText.text = string.Empty;
+    }
+
+    public void ShowWelcomeScreen()
+    {
+        ClearCurrentScreen();
+        _welcomeScreen.SetActive(true);
     }
 }
