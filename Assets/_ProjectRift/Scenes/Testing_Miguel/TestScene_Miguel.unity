@@ -26388,9 +26388,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480238d9c3c20914495814c55db12823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryManager
-  _campaign: {fileID: 11400000, guid: 43c87fc348bb97f408c12991713011d6, type: 2}
+  _playMode: 0
   _playOnStart: 1
-  _testChapter: {fileID: 0}
+  _campaign: {fileID: 11400000, guid: 43c87fc348bb97f408c12991713011d6, type: 2}
+  _debugChapter: {fileID: 0}
   _timelineDirector: {fileID: 1990146343}
   _logProgress: 0
 --- !u!1 &1999682909
