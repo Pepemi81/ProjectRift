@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Playables;
-using UnityEngine.Serialization;
 
 public enum StoryManagerMode
 {
@@ -23,18 +22,21 @@ public class StoryManager : Singleton<StoryManager>
 
     [Header("Debug")]
     [SerializeField] private bool _logProgress = true;
+    [SerializeField, ReadOnly] private StoryChapterData _currentChapter;
+    [SerializeField, ReadOnly] private int _currentChapterIndex = -1;
+    [SerializeField, ReadOnly] private int _currentStepIndex = -1;
+    [SerializeField, ReadOnly] private bool _waitingEventReceived;
+    [SerializeField, ReadOnly] private GameEvent _activeWaitEvent;
+    [SerializeField, ReadOnly] private bool _isPlaying;
 
     private Coroutine _storyCoroutine;
-    private bool _waitingEventReceived;
-    private GameEvent _activeWaitEvent;
-    private StoryChapterData _currentChapter;
 
     public StoryManagerMode PlayMode => _playMode;
     public StoryCampaignData CurrentCampaign => _campaign;
     public StoryChapterData CurrentChapter => _currentChapter;
-    public int CurrentChapterIndex { get; private set; } = -1;
-    public int CurrentStepIndex { get; private set; } = -1;
-    public bool IsPlaying => _storyCoroutine != null;
+    public int CurrentChapterIndex => _currentChapterIndex;
+    public int CurrentStepIndex => _currentStepIndex;
+    public bool IsPlaying => _isPlaying;
 
 
     private void Start()
@@ -71,6 +73,7 @@ public class StoryManager : Singleton<StoryManager>
         StopCurrentStory();
         _campaign = campaign;
         _playMode = StoryManagerMode.Story;
+        _isPlaying = true;
         _storyCoroutine = StartCoroutine(ProcessCampaign(campaign));
     }
 
@@ -85,7 +88,8 @@ public class StoryManager : Singleton<StoryManager>
         StopCurrentStory();
         _debugChapter = chapter;
         _playMode = StoryManagerMode.DebugChapter;
-        CurrentChapterIndex = -1;
+        _currentChapterIndex = -1;
+        _isPlaying = true;
         _storyCoroutine = StartCoroutine(ProcessSingleChapter(chapter));
     }
 
@@ -104,9 +108,10 @@ public class StoryManager : Singleton<StoryManager>
 
         UnsubscribeFromActiveWaitEvent();
         _currentChapter = null;
-        CurrentChapterIndex = -1;
-        CurrentStepIndex = -1;
+        _currentChapterIndex = -1;
+        _currentStepIndex = -1;
         _waitingEventReceived = false;
+        _isPlaying = false;
     }
 
 
@@ -126,7 +131,7 @@ public class StoryManager : Singleton<StoryManager>
                 continue;
             }
 
-            CurrentChapterIndex = i;
+            _currentChapterIndex = i;
             yield return ProcessChapter(chapter);
         }
 
@@ -148,12 +153,12 @@ public class StoryManager : Singleton<StoryManager>
 
         for (int i = 0; i < chapter.Steps.Count; i++)
         {
-            CurrentStepIndex = i;
+            _currentStepIndex = i;
             yield return ProcessStep(chapter.Steps[i]);
         }
 
         Log($"Chapter finished: {chapter.ChapterName}");
-        CurrentStepIndex = -1;
+        _currentStepIndex = -1;
     }
 
     #endregion
@@ -267,9 +272,10 @@ public class StoryManager : Singleton<StoryManager>
     private void ClearPlaybackState()
     {
         _currentChapter = null;
-        CurrentChapterIndex = -1;
-        CurrentStepIndex = -1;
+        _currentChapterIndex = -1;
+        _currentStepIndex = -1;
         _storyCoroutine = null;
+        _isPlaying = false;
     }
 
     private void Log(string message)

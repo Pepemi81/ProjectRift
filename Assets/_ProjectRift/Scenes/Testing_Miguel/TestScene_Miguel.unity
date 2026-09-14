@@ -3331,6 +3331,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.000061035156
       objectReference: {fileID: 0}
+    - target: {fileID: 2229274364850779187, guid: 737a2ca2a739b0c4da3194d8cccab45f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00018310547
+      objectReference: {fileID: 0}
     - target: {fileID: 4799549460345570276, guid: 737a2ca2a739b0c4da3194d8cccab45f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4287,8 +4291,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184857c71e5963044b106a3585c8fd31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonitorSequenceDirector
+  _testMode: 0
   _testSlide: {fileID: 0}
-  _testSequence: {fileID: 11400000, guid: 59f287ed8389af0479ff2436fbff5962, type: 2}
+  _testSequence: {fileID: 0}
+  _currentSequence: {fileID: 0}
+  _currentSlide: {fileID: 0}
+  _currentSlideNumber: 0
+  _totalSlides: 0
+  _remainingSlides: 0
+  _interactPressed: 0
+  _isPlaying: 0
 --- !u!82 &472622869
 AudioSource:
   m_ObjectHideFlags: 0
@@ -26394,6 +26406,12 @@ MonoBehaviour:
   _debugChapter: {fileID: 0}
   _timelineDirector: {fileID: 1990146343}
   _logProgress: 0
+  _currentChapter: {fileID: 0}
+  _currentChapterIndex: -1
+  _currentStepIndex: -1
+  _waitingEventReceived: 0
+  _activeWaitEvent: {fileID: 0}
+  _isPlaying: 0
 --- !u!1 &1999682909
 GameObject:
   m_ObjectHideFlags: 0

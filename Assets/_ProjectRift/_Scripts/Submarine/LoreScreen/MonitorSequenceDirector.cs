@@ -1,6 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
+public enum MonitorSequenceTestMode
+{
+    SingleSlide,
+    Sequence
+}
 /// <summary>
 /// ScriptableObject que almacena una lista ordenada de diapositivas (MonitorSlideData) 
 /// para reproducirlas de forma consecutiva en el monitor.
@@ -8,12 +13,25 @@ using UnityEngine;
 [RequireComponent(typeof(MonitorSlideManager))]
 public class MonitorSequenceDirector : MonoBehaviour
 {
+    [SerializeField] private MonitorSequenceTestMode _testMode = MonitorSequenceTestMode.SingleSlide;
     [SerializeField] private MonitorSlideData _testSlide;
     [SerializeField] private MonitorSequenceData _testSequence;
 
+    [SerializeField, ReadOnly] private MonitorSequenceData _currentSequence;
+    [SerializeField, ReadOnly] private MonitorSlideData _currentSlide;
+    [SerializeField, ReadOnly] private int _currentSlideNumber;
+    [SerializeField, ReadOnly] private int _totalSlides;
+    [SerializeField, ReadOnly] private int _remainingSlides;
+    [SerializeField, ReadOnly] private bool _interactPressed;
+    [SerializeField, ReadOnly] private bool _isPlaying;
+
     private MonitorSlideManager _monitorManager;
     private Coroutine _sequenceCoroutine;
-    private bool _interactPressed;
+
+    public MonitorSequenceTestMode TestMode => _testMode;
+    public bool IsPlaying => _isPlaying;
+    public int CurrentSlideNumber => _currentSlideNumber;
+    public int RemainingSlides => _remainingSlides;
 
     private void Awake()
     {
@@ -24,13 +42,14 @@ public class MonitorSequenceDirector : MonoBehaviour
     {
         if (sequenceData == null || sequenceData.Slides.Count == 0)
         {
-            Debug.LogWarning("<color=red>[LoreSequenceManager]</color> La secuencia está vacía o es nula.");
+            Debug.LogWarning("<color=red>[LoreSequenceManager]</color> La secuencia estï¿½ vacï¿½a o es nula.");
             return;
         }
 
         if (_sequenceCoroutine != null)
         {
             StopCoroutine(_sequenceCoroutine);
+            ClearRuntimeState();
         }
 
         _sequenceCoroutine = StartCoroutine(ProcessSequence(sequenceData));
@@ -47,6 +66,7 @@ public class MonitorSequenceDirector : MonoBehaviour
         if (_sequenceCoroutine != null)
         {
             StopCoroutine(_sequenceCoroutine);
+            ClearRuntimeState();
         }
 
         _sequenceCoroutine = StartCoroutine(ProcessSlide(data));
@@ -54,25 +74,42 @@ public class MonitorSequenceDirector : MonoBehaviour
 
     private IEnumerator ProcessSequence(MonitorSequenceData sequenceData)
     {
-        foreach (MonitorSlideData screenData in sequenceData.Slides)
+        _currentSequence = sequenceData;
+        _totalSlides = sequenceData.Slides.Count;
+        _isPlaying = true;
+
+        for (int i = 0; i < sequenceData.Slides.Count; i++)
         {
-            yield return StartCoroutine(ProcessScreenData(screenData));
+            _currentSlideNumber = i + 1;
+            _currentSlide = sequenceData.Slides[i];
+            _remainingSlides = _totalSlides - i - 1;
+
+            yield return StartCoroutine(ProcessScreenData(_currentSlide));
         }
 
         _monitorManager.ClearCurrentScreen();
         Debug.LogWarning("<color=cyan>[LoreSequenceManager]</color> Secuencia finalizada. Pantalla restaurada.");
         _sequenceCoroutine = null;
+        ClearRuntimeState();
 
         sequenceData.EventOnComplete?.Invoke();
     }
 
     private IEnumerator ProcessSlide(MonitorSlideData data)
     {
+        _currentSequence = null;
+        _currentSlide = data;
+        _currentSlideNumber = 1;
+        _totalSlides = 1;
+        _remainingSlides = 0;
+        _isPlaying = true;
+
         yield return StartCoroutine(ProcessScreenData(data));
 
         _monitorManager.ClearCurrentScreen();
         Debug.LogWarning("<color=cyan>[LoreSequenceManager]</color> Slide individual finalizado. Pantalla restaurada.");
         _sequenceCoroutine = null;
+        ClearRuntimeState();
     }
 
     private IEnumerator ProcessScreenData(MonitorSlideData slideData)
@@ -118,5 +155,16 @@ public class MonitorSequenceDirector : MonoBehaviour
     public void TestSingleSlide()
     {
         PlaySingleSlide(_testSlide);
+    }
+
+    private void ClearRuntimeState()
+    {
+        _currentSequence = null;
+        _currentSlide = null;
+        _currentSlideNumber = 0;
+        _totalSlides = 0;
+        _remainingSlides = 0;
+        _interactPressed = false;
+        _isPlaying = false;
     }
 }

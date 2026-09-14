@@ -5,6 +5,8 @@ using UnityEngine;
 [CustomEditor(typeof(StoryManager))]
 public class StoryManagerCE : Editor
 {
+    private bool _showDebug;
+
     private SerializedProperty _script;
     private SerializedProperty _playMode;
     private SerializedProperty _playOnStart;
@@ -12,6 +14,14 @@ public class StoryManagerCE : Editor
     private SerializedProperty _debugChapter;
     private SerializedProperty _timelineDirector;
     private SerializedProperty _logProgress;
+    private SerializedProperty _currentChapter;
+    private SerializedProperty _currentChapterIndex;
+    private SerializedProperty _currentStepIndex;
+    private SerializedProperty _waitingEventReceived;
+    private SerializedProperty _activeWaitEvent;
+    private SerializedProperty _isPlaying;
+
+    private bool IsStoryMode => (StoryManagerMode)_playMode.enumValueIndex == StoryManagerMode.Story;
 
     private void OnEnable()
     {
@@ -22,6 +32,12 @@ public class StoryManagerCE : Editor
         _debugChapter = serializedObject.FindProperty("_debugChapter");
         _timelineDirector = serializedObject.FindProperty("_timelineDirector");
         _logProgress = serializedObject.FindProperty("_logProgress");
+        _currentChapter = serializedObject.FindProperty("_currentChapter");
+        _currentChapterIndex = serializedObject.FindProperty("_currentChapterIndex");
+        _currentStepIndex = serializedObject.FindProperty("_currentStepIndex");
+        _waitingEventReceived = serializedObject.FindProperty("_waitingEventReceived");
+        _activeWaitEvent = serializedObject.FindProperty("_activeWaitEvent");
+        _isPlaying = serializedObject.FindProperty("_isPlaying");
     }
 
     public override void OnInspectorGUI()
@@ -29,19 +45,11 @@ public class StoryManagerCE : Editor
         serializedObject.Update();
 
         DrawScriptField();
-
-        EditorGUILayout.Space();
-        EditorGUILayout.PropertyField(_playMode);
-        EditorGUILayout.PropertyField(_playOnStart);
-
-        EditorGUILayout.Space();
+        DrawModeFields();
         DrawSelectedModeFields();
-
-        EditorGUILayout.Space();
-        EditorGUILayout.PropertyField(_timelineDirector);
-
-        EditorGUILayout.Space();
-        EditorGUILayout.PropertyField(_logProgress);
+        DrawTimelineFields();
+        DrawDebugSettings();
+        DrawRuntimeDebugFields();
 
         serializedObject.ApplyModifiedProperties();
     }
@@ -59,11 +67,18 @@ public class StoryManagerCE : Editor
         }
     }
 
+    private void DrawModeFields()
+    {
+        EditorGUILayout.Space();
+        EditorGUILayout.PropertyField(_playMode);
+        EditorGUILayout.PropertyField(_playOnStart);
+    }
+
     private void DrawSelectedModeFields()
     {
-        StoryManagerMode selectedMode = (StoryManagerMode)_playMode.enumValueIndex;
+        EditorGUILayout.Space();
 
-        if (selectedMode == StoryManagerMode.Story)
+        if (IsStoryMode)
         {
             GUILayout.Label("Story", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_campaign);
@@ -72,6 +87,35 @@ public class StoryManagerCE : Editor
         {
             GUILayout.Label("Chapter Debug", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_debugChapter);
+        }
+    }
+
+    private void DrawTimelineFields()
+    {
+        EditorGUILayout.Space();
+        EditorGUILayout.PropertyField(_timelineDirector);
+    }
+
+    private void DrawDebugSettings()
+    {
+        EditorGUILayout.Space();
+        EditorGUILayout.PropertyField(_logProgress);
+    }
+
+    private void DrawRuntimeDebugFields()
+    {
+        _showDebug = EditorGUILayout.Toggle("Show Debug", _showDebug);
+
+        if (!_showDebug) return;
+
+        using (new EditorGUI.DisabledScope(true))
+        {
+            EditorGUILayout.PropertyField(_currentChapter);
+            EditorGUILayout.PropertyField(_currentChapterIndex);
+            EditorGUILayout.PropertyField(_currentStepIndex);
+            EditorGUILayout.PropertyField(_waitingEventReceived);
+            EditorGUILayout.PropertyField(_activeWaitEvent);
+            EditorGUILayout.PropertyField(_isPlaying);
         }
     }
 }
