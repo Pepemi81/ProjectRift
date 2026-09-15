@@ -11,13 +11,13 @@ public class GameEventListener : MonoBehaviour
         public float Delay;
         public UnityEvent Action;
 
-        private WaitForSeconds _waitCache;
+        private WaitForSeconds _waitDuration;
 
         public void Initialize()
         {
             if (Delay > 0f)
             {
-                _waitCache = new WaitForSeconds(Delay);
+                _waitDuration = new WaitForSeconds(Delay);
             }
         }
 
@@ -25,7 +25,7 @@ public class GameEventListener : MonoBehaviour
         {
             if (Delay > 0f)
             {
-                yield return _waitCache;
+                yield return _waitDuration;
             }
 
             Action?.Invoke();
