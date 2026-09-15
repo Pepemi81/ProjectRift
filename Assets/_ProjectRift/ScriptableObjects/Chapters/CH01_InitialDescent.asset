@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryChapterData
   _chapterName: 'CH01: InitialDescent'
   _summary: Introduction sequences for the game. Includes the hatch closing, the
-    sfx for the submarine dropdown and the initial tutorial screens for the startuo
+    sfx for the submarine dropdown and the initial tutorial screens for the start
     of the submarine.
   _steps:
   - _stepName: Fade from black

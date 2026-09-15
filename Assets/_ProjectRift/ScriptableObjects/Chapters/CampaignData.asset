@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CampaignData
   m_EditorClassIdentifier: Assembly-CSharp::StoryCampaignData
   _campaignName: Historia Principal
-  _summary: Yea babeyy
+  _summary: MainStory
   _chapters:
   - {fileID: 11400000, guid: dcd8356608851514e8500b878c5a26bc, type: 2}
   - {fileID: 11400000, guid: f91cd8a8f35df844cbbcccc58fc31e48, type: 2}
