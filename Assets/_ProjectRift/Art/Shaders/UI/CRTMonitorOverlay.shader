@@ -26,7 +26,7 @@ Shader "ProjectRift/UI/CRT Monitor Overlay"
         Cull Off
         Lighting Off
         ZWrite Off
-        ZTest Always
+        ZTest LEqual
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
