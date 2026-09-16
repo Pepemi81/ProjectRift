@@ -1027,7 +1027,7 @@ GameObject:
   - component: {fileID: 1568073827230666011}
   - component: {fileID: 6039860242545043701}
   m_Layer: 0
-  m_Name: DefaultText
+  m_Name: CustomText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
