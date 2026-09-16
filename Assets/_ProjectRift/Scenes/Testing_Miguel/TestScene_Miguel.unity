@@ -1772,7 +1772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 122668056}
   m_Layer: 0
-  m_Name: Adicional Props
+  m_Name: AdditionalProps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28648,7 +28648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryManager
   _playMode: 0
-  _playOnStart: 0
+  _playOnStart: 1
   _campaign: {fileID: 11400000, guid: 43c87fc348bb97f408c12991713011d6, type: 2}
   _debugChapter: {fileID: 0}
   _timelineDirector: {fileID: 1990146343}
@@ -29765,7 +29765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6407554054970474000, guid: 30b605d7c03576648ad763c7eba5c315, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.256
+      value: -0.071
       objectReference: {fileID: 0}
     - target: {fileID: 6407554054970474000, guid: 30b605d7c03576648ad763c7eba5c315, type: 3}
       propertyPath: m_LocalRotation.w

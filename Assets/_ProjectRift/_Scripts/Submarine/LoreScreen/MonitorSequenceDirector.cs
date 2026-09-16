@@ -87,7 +87,7 @@ public class MonitorSequenceDirector : MonoBehaviour
             yield return StartCoroutine(ProcessScreenData(_currentSlide));
         }
 
-        _monitorManager.ClearCurrentScreen();
+        _monitorManager.ShowWelcomeScreen();
         Debug.LogWarning("<color=cyan>[LoreSequenceManager]</color> Secuencia finalizada. Pantalla restaurada.");
         _sequenceCoroutine = null;
         ClearRuntimeState();

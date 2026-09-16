@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+public class TriggerBoxSceneLoader : MonoBehaviour
 {
     [Header("Escenas")]
     [SerializeField] private SceneField[] _scenesToLoad;
