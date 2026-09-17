@@ -26,8 +26,9 @@ public class HologramSync : Singleton<HologramSync>
         _hologramOrigin.localPosition = inverseRotation * (-scaledPosition);
     }
 
-    public void SetScaleFactor(float _scaleFactor)
+    // Cambio de escala por si se implementa funcionalidad de zoom
+    public void SetScaleFactor(float scaleFactor)
     {
-        _scaleFactor = Mathf.Clamp(_scaleFactor, _minScale, _maxScale);
+        _scaleFactor = Mathf.Clamp(scaleFactor, _minScale, _maxScale);
     }
 }
