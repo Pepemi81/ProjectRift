@@ -20,7 +20,7 @@ MonoBehaviour:
   _audioSettings:
     _slideStartSound: {fileID: 0}
     _slideStartVolume: 0.35
-    _typingSound: {fileID: 8300000, guid: 206c864db360f56418c536b329a79163, type: 3}
+    _typingSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
     _characterInterval: 1
     _typingVolume: 0.35
     _typingPitchRange: {x: 0.96, y: 1.04}

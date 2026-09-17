@@ -12963,7 +12963,7 @@ GameObject:
   - component: {fileID: 829036115}
   - component: {fileID: 829036116}
   m_Layer: 0
-  m_Name: ApplicationQuit
+  m_Name: FadeToBlack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12996,7 +12996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cae61afa34772846888b4cc2f215d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameEventListener
-  _gameEvent: {fileID: 11400000, guid: 0cc6452087628904e816321c80f9f045, type: 2}
+  _gameEvent: {fileID: 11400000, guid: 2258c227e4ab26c48966194425ef6c0c, type: 2}
   _responses:
   - Delay: 0
     Action:
@@ -13026,7 +13026,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-  - Delay: 2
+  - Delay: 5
     Action:
       m_PersistentCalls:
         m_Calls:
@@ -14818,6 +14818,18 @@ MonoBehaviour:
             m_StringArgument: Deploy
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 187228347}
+          m_TargetAssemblyTypeName: SubmarineProximityDisplay, Assembly-CSharp
+          m_MethodName: DisableLights
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
 --- !u!1 &955509270
 GameObject:
   m_ObjectHideFlags: 0
@@ -16533,6 +16545,18 @@ MonoBehaviour:
     Action:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 258499510}
+          m_TargetAssemblyTypeName: InitialChunkLoader, Assembly-CSharp
+          m_MethodName: LoadInitialChunks
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 736128035}
           m_TargetAssemblyTypeName: SubmarineTestController, Assembly-CSharp
           m_MethodName: SetSubmarineLocked
@@ -16543,6 +16567,18 @@ MonoBehaviour:
             m_IntArgument: 23
             m_FloatArgument: 0
             m_StringArgument: Deploy
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 187228347}
+          m_TargetAssemblyTypeName: SubmarineProximityDisplay, Assembly-CSharp
+          m_MethodName: EnableLights
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &1058697802
@@ -20701,7 +20737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cae61afa34772846888b4cc2f215d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameEventListener
-  _gameEvent: {fileID: 11400000, guid: 0cc6452087628904e816321c80f9f045, type: 2}
+  _gameEvent: {fileID: 11400000, guid: 72cbcfa6951755841bb5df200362af70, type: 2}
   _responses:
   - Delay: 0
     Action:
@@ -29002,7 +29038,7 @@ MonoBehaviour:
   _playMode: 0
   _playOnStart: 1
   _campaign: {fileID: 11400000, guid: 43c87fc348bb97f408c12991713011d6, type: 2}
-  _debugChapter: {fileID: 0}
+  _debugChapter: {fileID: 11400000, guid: 3f171a4d06ce18f409942bdc4e96f724, type: 2}
   _timelineDirector: {fileID: 1990146343}
   _logProgress: 0
   _currentChapter: {fileID: 0}
