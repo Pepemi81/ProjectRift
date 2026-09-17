@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750e724a0806e2449a96e4452fdb37d6, type: 3}
+  m_Name: S2_Slide4
+  m_EditorClassIdentifier: Assembly-CSharp::MonitorSlideData
+  _displayMode: 0
+  _slidePrefab: {fileID: 0}
+  _displayImage: {fileID: 21300000, guid: 85584cc3821adf541b8c32d1a60c7711, type: 3}
+  _displayText: "> RECOMENDACI\xD3N: ABANDONAR LA ZONA DE INMEDIATO."
+  _autoAdvanceDelay: 1
+  _audioSettings:
+    _slideStartSound: {fileID: 0}
+    _slideStartVolume: 0.35
+    _typingSound: {fileID: 8300000, guid: 206c864db360f56418c536b329a79163, type: 3}
+    _characterInterval: 1
+    _typingVolume: 0.35
+    _typingPitchRange: {x: 0.96, y: 1.04}

@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class SubmarineTestController : MonoBehaviour
 {
+    [SerializeField] private bool _isLocked = true;
+
     [Header("Configuración Física")]
     [SerializeField] private float _engineForce = 1500f;
     [SerializeField] private float _torqueForce = 500f;
@@ -28,6 +30,8 @@ public class SubmarineTestController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (_isLocked) return;
+
         Keyboard keyboard = Keyboard.current;
 
         HandleMovement(keyboard);
@@ -73,6 +77,9 @@ public class SubmarineTestController : MonoBehaviour
             _rb.AddTorque(localTorque * _torqueForce, ForceMode.Force);
         }
     }
+
+    public void SetSubmarineLocked(bool isLocked) => _isLocked = isLocked;
+
 
     // --- ENTRADAS PARA EL MOVIMIENTO TRIDIMENSIONAL ---
 

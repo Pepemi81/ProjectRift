@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c61c5c257b6aa4db878c5613ec4253, type: 3}
+  m_Name: TestSequence2
+  m_EditorClassIdentifier: Assembly-CSharp::MonitorSequenceData
+  _slides:
+  - {fileID: 11400000, guid: 1369ab55f19b7544d82f17971264e1ad, type: 2}
+  - {fileID: 11400000, guid: c83ec4355ae7d1d4f838ae7606a47e78, type: 2}
+  - {fileID: 11400000, guid: e23e61544294b664b976686bb7da23a0, type: 2}
+  - {fileID: 11400000, guid: 5c60443457d5d524f94e2536be840bf3, type: 2}
+  _eventOnComplete: {fileID: 11400000, guid: f28e5dee2cffb464993d0ebad391f45a, type: 2}

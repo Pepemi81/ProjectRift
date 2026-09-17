@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9f2de62de62387418c0fac6f16db90e, type: 3}
-  m_Name: CHT_WelcomeScreen
+  m_Name: CHT4_EnableSubmarine
   m_EditorClassIdentifier: Assembly-CSharp::StoryChapterData
-  _chapterName: 'CH02: Welcome Screen'
-  _summary: Test de llamada de eventos y uso de timeline
+  _chapterName: 'CH04: Enable Submarine'
+  _summary: "Se habilitan los controles del submarino, cuando el jugador llega a
+    la zona de la misi\xF3n se termina el paso."
   _steps:
-  - _stepName: Step principal
+  - _stepName: Enable controls
     _notes: 
     _eventsOnStart:
-    - {fileID: 11400000, guid: 3350c191c0855784d87fef27e0a024de, type: 2}
-    _waitForEvent: {fileID: 11400000, guid: df8511dffdb2fc843b845a37e04c3ce0, type: 2}
+    - {fileID: 11400000, guid: 9b5cbd91f234bd04da775428a0e79849, type: 2}
+    _waitForEvent: {fileID: 11400000, guid: f211a58d3d01dd941932220d0f26f84e, type: 2}
     _timelineAsset: {fileID: 0}
     _waitForTimelineToFinish: 0
-    _delayAfterConditions: 2
-    _eventsOnComplete:
-    - {fileID: 11400000, guid: 323414e0569a9184cab97458beff01d6, type: 2}
+    _delayAfterConditions: 0
+    _eventsOnComplete: []

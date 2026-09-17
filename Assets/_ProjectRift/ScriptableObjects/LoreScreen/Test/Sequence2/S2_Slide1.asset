@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 750e724a0806e2449a96e4452fdb37d6, type: 3}
-  m_Name: TestSlide2
+  m_Name: S2_Slide1
   m_EditorClassIdentifier: Assembly-CSharp::MonitorSlideData
   _displayMode: 0
   _slidePrefab: {fileID: 0}
-  _displayImage: {fileID: 21300000, guid: 252f80d1b7b3566498aa39687ddbc4d1, type: 3}
-  _displayText: '> Soy Mia, tu asistente personal artificial.'
+  _displayImage: {fileID: 21300000, guid: 75f3f5a7971858b409f98e0d1c10d886, type: 3}
+  _displayText: "> Perfecto, hemos llegado a la zona de la misi\xF3n."
   _autoAdvanceDelay: 1
   _audioSettings:
     _slideStartSound: {fileID: 0}

@@ -1658,8 +1658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e831f77f4c1ae46a05b57ec89daff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MissionTest
-  _missionStartEvent: {fileID: 11400000, guid: 7e76165109d478c4e9e02d71fea6542d, type: 2}
-  _missionCompleteEvent: {fileID: 11400000, guid: 029b3d92664652340817248e958ca247, type: 2}
+  _missionStartEvent: {fileID: 11400000, guid: f211a58d3d01dd941932220d0f26f84e, type: 2}
+  _missionCompleteEvent: {fileID: 0}
   _submarineLayer:
     serializedVersion: 2
     m_Bits: 8

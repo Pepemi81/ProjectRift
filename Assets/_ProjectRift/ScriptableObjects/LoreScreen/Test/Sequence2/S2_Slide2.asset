@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 750e724a0806e2449a96e4452fdb37d6, type: 3}
-  m_Name: TestSlide3
+  m_Name: S2_Slide2
   m_EditorClassIdentifier: Assembly-CSharp::MonitorSlideData
   _displayMode: 0
-  _slidePrefab: {fileID: 3839518848460766100, guid: e6b45b15687081948bfb691d3afd3524, type: 3}
-  _displayImage: {fileID: 21300000, guid: 0e1b7bf0e524ed048be3fee0cf238db6, type: 3}
-  _displayText: "> Te ayudar\xE9 a completar las misiones que hagan falta,"
-  _autoAdvanceDelay: 0.5
+  _slidePrefab: {fileID: 0}
+  _displayImage: {fileID: 21300000, guid: 75f3f5a7971858b409f98e0d1c10d886, type: 3}
+  _displayText: '> Podemos proceder con la primera tarea: el taladrado.'
+  _autoAdvanceDelay: 1
   _audioSettings:
     _slideStartSound: {fileID: 0}
     _slideStartVolume: 1

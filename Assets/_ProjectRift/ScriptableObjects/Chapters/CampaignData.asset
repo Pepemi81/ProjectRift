@@ -15,6 +15,8 @@ MonoBehaviour:
   _campaignName: Historia Principal
   _summary: MainStory
   _chapters:
-  - {fileID: 11400000, guid: dcd8356608851514e8500b878c5a26bc, type: 2}
+  - {fileID: 11400000, guid: 65bfcd37a585a444686872bd485fc31e, type: 2}
   - {fileID: 11400000, guid: f91cd8a8f35df844cbbcccc58fc31e48, type: 2}
+  - {fileID: 11400000, guid: fba9b25b71443904d9b9ca3b92460c87, type: 2}
+  - {fileID: 11400000, guid: 069cf31371b8b454f9f5d05a2aa6f6a2, type: 2}
   - {fileID: 11400000, guid: 3f171a4d06ce18f409942bdc4e96f724, type: 2}

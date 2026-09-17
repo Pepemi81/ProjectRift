@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f2de62de62387418c0fac6f16db90e, type: 3}
+  m_Name: CHT5_EndExperience
+  m_EditorClassIdentifier: Assembly-CSharp::StoryChapterData
+  _chapterName: 'CH05: End experience'
+  _summary: Se ejecutan las ultimas diapositivas, y se hace un fundido a negro, cerrando
+    la app.
+  _steps:
+  - _stepName: Secuencia de la pantalla final
+    _notes: 
+    _eventsOnStart:
+    - {fileID: 11400000, guid: 72cbcfa6951755841bb5df200362af70, type: 2}
+    _waitForEvent: {fileID: 11400000, guid: f28e5dee2cffb464993d0ebad391f45a, type: 2}
+    _timelineAsset: {fileID: 0}
+    _waitForTimelineToFinish: 0
+    _delayAfterConditions: 2
+    _eventsOnComplete:
+    - {fileID: 11400000, guid: 2258c227e4ab26c48966194425ef6c0c, type: 2}
