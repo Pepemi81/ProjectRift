@@ -15145,22 +15145,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-  - Delay: 5
-    Action:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1914937422}
-          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-          m_MethodName: Play
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 23
-            m_FloatArgument: 0
-            m_StringArgument: Deploy
-            m_BoolArgument: 1
-          m_CallState: 2
 --- !u!1 &955509270
 GameObject:
   m_ObjectHideFlags: 0
@@ -16915,6 +16899,22 @@ MonoBehaviour:
         - m_Target: {fileID: 187228347}
           m_TargetAssemblyTypeName: SubmarineProximityDisplay, Assembly-CSharp
           m_MethodName: EnableLights
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Delay: 0
+    Action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114709142}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: Play
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
