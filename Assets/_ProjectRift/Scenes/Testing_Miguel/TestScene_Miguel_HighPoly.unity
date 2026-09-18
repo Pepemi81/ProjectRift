@@ -3094,10 +3094,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae190a8e1582eb489c7e6b10b4b553c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InitialChunkLoader
-  _loadAllAtOnce: 0
   _scenesToLoad:
-  - m_SceneAsset: {fileID: 102900000, guid: dbb3009b226480349843f6b47d7df1c5, type: 3}
-    m_SceneName: TestChunk1_Miguel
+  - m_SceneAsset: {fileID: 102900000, guid: db49345b7e1c1a847bca77dedbb73417, type: 3}
+    m_SceneName: TestChunk1_Miguel_NoCheckPoint
+  - m_SceneAsset: {fileID: 102900000, guid: b6f740ed6e2cc5c4cb20b9e678fb0f8e, type: 3}
+    m_SceneName: TestChunk2_Miguel_NoCheckPoint
+  - m_SceneAsset: {fileID: 102900000, guid: 08773ab9277cd744c80bf8ac366f9b1f, type: 3}
+    m_SceneName: TestChunk3_Miguel_NoCheckPoint
 --- !u!1001 &276741445
 PrefabInstance:
   m_ObjectHideFlags: 0

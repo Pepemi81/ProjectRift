@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
@@ -29,3 +30,4 @@ public class GameEventCE : Editor
         GUI.enabled = true;
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CustomEditor(typeof(MonitorSlideData))]
@@ -68,3 +69,4 @@ public class MonitorSlideDataCE : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif

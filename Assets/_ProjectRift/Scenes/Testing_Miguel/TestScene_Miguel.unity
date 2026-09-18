@@ -3094,7 +3094,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae190a8e1582eb489c7e6b10b4b553c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InitialChunkLoader
-  _loadAllAtOnce: 0
   _scenesToLoad:
   - m_SceneAsset: {fileID: 102900000, guid: dbb3009b226480349843f6b47d7df1c5, type: 3}
     m_SceneName: TestChunk1_Miguel
@@ -17767,7 +17766,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 188542898}
-  m_VersionIndex: 4021
+  m_VersionIndex: 4024
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
