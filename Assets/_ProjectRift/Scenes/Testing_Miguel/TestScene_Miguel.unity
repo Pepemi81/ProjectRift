@@ -5305,7 +5305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184857c71e5963044b106a3585c8fd31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonitorSequenceDirector
-  _testMode: 0
+  _testMode: 1
   _testSlide: {fileID: 11400000, guid: de41d58be1c1032459bd4ba70e5f23dd, type: 2}
   _testSequence: {fileID: 11400000, guid: 59f287ed8389af0479ff2436fbff5962, type: 2}
   _currentSequence: {fileID: 0}
@@ -16908,7 +16908,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - Delay: 0
+  - Delay: 3
     Action:
       m_PersistentCalls:
         m_Calls:
