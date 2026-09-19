@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f2de62de62387418c0fac6f16db90e, type: 3}
+  m_Name: CH01_InitialDescent_Alberto
+  m_EditorClassIdentifier: Assembly-CSharp::StoryChapterData
+  _chapterName: 'CH01: InitialDescent'
+  _summary: Introduction sequences for the game. Includes the hatch closing, the
+    sfx for the submarine dropdown and the initial tutorial screens for the start
+    of the submarine.
+  _steps:
+  - _stepName: Fade from black
+    _notes: 
+    _eventsOnStart:
+    - {fileID: 11400000, guid: 3627188ec97ca5248898ead864b39d9c, type: 2}
+    _waitForEvent: {fileID: 11400000, guid: 1e51a37fa2f5e7f428c45b639254abd2, type: 2}
+    _timelineAsset: {fileID: 0}
+    _waitForTimelineToFinish: 0
+    _delayAfterConditions: 0
+    _eventsOnComplete: []
+  - _stepName: Hatch timeline (NOT IMPLEMENTED)
+    _notes: 
+    _eventsOnStart: []
+    _waitForEvent: {fileID: 0}
+    _timelineAsset: {fileID: 0}
+    _waitForTimelineToFinish: 0
+    _delayAfterConditions: 0
+    _eventsOnComplete: []
+  - _stepName: Submarine dropdown timeline (NOT IMPLEMENTED)
+    _notes: 
+    _eventsOnStart: []
+    _waitForEvent: {fileID: 0}
+    _timelineAsset: {fileID: 0}
+    _waitForTimelineToFinish: 1
+    _delayAfterConditions: 0
+    _eventsOnComplete: []
+  - _stepName: Screen prompt for startup (NOT IMPLEMENTED)
+    _notes: 
+    _eventsOnStart: []
+    _waitForEvent: {fileID: 0}
+    _timelineAsset: {fileID: 0}
+    _waitForTimelineToFinish: 1
+    _delayAfterConditions: 0
+    _eventsOnComplete: []
