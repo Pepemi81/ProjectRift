@@ -32,8 +32,9 @@ public class HologramChunk : MonoBehaviour
     {
         if (scene == _originalScene)
         {
-            SceneManager.sceneUnloaded -= OnSceneUnloaded;
             Destroy(gameObject);
         }
     }
+
+    private void OnDestroy() => SceneManager.sceneUnloaded -= OnSceneUnloaded;
 }
