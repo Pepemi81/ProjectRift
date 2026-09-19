@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &6857586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
   _scenesToLoad:
   - m_SceneAsset: {fileID: 102900000, guid: 08773ab9277cd744c80bf8ac366f9b1f, type: 3}
-    m_SceneName: TestChunk3_Miguel
+    m_SceneName: TestChunk3_Miguel_NoCheckPoint
   _scenesToUnload:
   - m_SceneAsset: {fileID: 102900000, guid: dbb3009b226480349843f6b47d7df1c5, type: 3}
     m_SceneName: TestChunk1_Miguel
@@ -209,7 +209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &484280464
 Transform:
   m_ObjectHideFlags: 0
@@ -259,11 +259,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
   _scenesToLoad:
+  - m_SceneAsset: {fileID: 102900000, guid: 08773ab9277cd744c80bf8ac366f9b1f, type: 3}
+    m_SceneName: TestChunk3_Miguel_NoCheckPoint
+  _scenesToUnload:
   - m_SceneAsset: {fileID: 102900000, guid: dbb3009b226480349843f6b47d7df1c5, type: 3}
     m_SceneName: TestChunk1_Miguel
-  _scenesToUnload:
-  - m_SceneAsset: {fileID: 102900000, guid: 08773ab9277cd744c80bf8ac366f9b1f, type: 3}
-    m_SceneName: TestChunk3_Miguel
   _showGizmos: 1
 --- !u!43 &746262305
 Mesh:
